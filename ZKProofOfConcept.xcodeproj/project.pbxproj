@@ -12,6 +12,16 @@
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
 		C7653C9F229C809C00777D13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9D229C809C00777D13 /* Main.storyboard */; };
 		C7653CAB229C809D00777D13 /* ZKProofOfConceptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CAA229C809D00777D13 /* ZKProofOfConceptTests.swift */; };
+		C7653CBA229C8D6000777D13 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CB9229C8D6000777D13 /* SHA256.swift */; };
+		C7653CBC229CA0DD00777D13 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CBB229CA0DD00777D13 /* Block.swift */; };
+		C7653CBF229CA10E00777D13 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CBE229CA10E00777D13 /* Typealias.swift */; };
+		C7653CC4229CB86900777D13 /* Pedersen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CC3229CB86900777D13 /* Pedersen.swift */; };
+		C7653CC6229DDD3D00777D13 /* Merkletree.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CC5229DDD3D00777D13 /* Merkletree.swift */; };
+		C7653CC8229DEFB800777D13 /* Sha256Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CC7229DEFB800777D13 /* Sha256Tests.swift */; };
+		C7653CD0229DF0C800777D13 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CCC229DF09E00777D13 /* Data.swift */; };
+		C7653CD1229DF0CA00777D13 /* Uint64.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CCE229DF0BA00777D13 /* Uint64.swift */; };
+		C7653CD4229DF0FB00777D13 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CD2229DF0DB00777D13 /* String.swift */; };
+		C7653CD6229DF30B00777D13 /* MerkletreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CD5229DF30B00777D13 /* MerkletreeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +45,18 @@
 		C7653CA6229C809D00777D13 /* ZKProofOfConceptTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZKProofOfConceptTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653CAA229C809D00777D13 /* ZKProofOfConceptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZKProofOfConceptTests.swift; sourceTree = "<group>"; };
 		C7653CAC229C809D00777D13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7653CB9229C8D6000777D13 /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
+		C7653CBB229CA0DD00777D13 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		C7653CBE229CA10E00777D13 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
+		C7653CC0229CA1CA00777D13 /* ZKProofOfConcept-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZKProofOfConcept-Bridging-Header.h"; sourceTree = "<group>"; };
+		C7653CC3229CB86900777D13 /* Pedersen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pedersen.swift; sourceTree = "<group>"; };
+		C7653CC5229DDD3D00777D13 /* Merkletree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merkletree.swift; sourceTree = "<group>"; };
+		C7653CC7229DEFB800777D13 /* Sha256Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sha256Tests.swift; sourceTree = "<group>"; };
+		C7653CC9229DEFD500777D13 /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
+		C7653CCC229DF09E00777D13 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		C7653CCE229DF0BA00777D13 /* Uint64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uint64.swift; sourceTree = "<group>"; };
+		C7653CD2229DF0DB00777D13 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C7653CD5229DF30B00777D13 /* MerkletreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerkletreeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +80,7 @@
 		C7653C8B229C809900777D13 = {
 			isa = PBXGroup;
 			children = (
+				C7653CB5229C8CE000777D13 /* Blockchain */,
 				C7653C96229C809900777D13 /* ZKProofOfConcept */,
 				C7653CA9229C809D00777D13 /* ZKProofOfConceptTests */,
 				C7653C95229C809900777D13 /* Products */,
@@ -90,9 +113,60 @@
 			isa = PBXGroup;
 			children = (
 				C7653CAA229C809D00777D13 /* ZKProofOfConceptTests.swift */,
+				C7653CC7229DEFB800777D13 /* Sha256Tests.swift */,
+				C7653CD5229DF30B00777D13 /* MerkletreeTests.swift */,
+				C7653CC9229DEFD500777D13 /* KeyTests.swift */,
 				C7653CAC229C809D00777D13 /* Info.plist */,
 			);
 			path = ZKProofOfConceptTests;
+			sourceTree = "<group>";
+		};
+		C7653CB5229C8CE000777D13 /* Blockchain */ = {
+			isa = PBXGroup;
+			children = (
+				C7653CBD229CA0F700777D13 /* Utils */,
+				C7653CB8229C8D4F00777D13 /* Crypto */,
+				C7653CB7229C8CF000777D13 /* Entry */,
+				C7653CB6229C8CE600777D13 /* Transaction */,
+				C7653CBB229CA0DD00777D13 /* Block.swift */,
+			);
+			path = Blockchain;
+			sourceTree = "<group>";
+		};
+		C7653CB6229C8CE600777D13 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		C7653CB7229C8CF000777D13 /* Entry */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entry;
+			sourceTree = "<group>";
+		};
+		C7653CB8229C8D4F00777D13 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				C7653CB9229C8D6000777D13 /* SHA256.swift */,
+				C7653CC3229CB86900777D13 /* Pedersen.swift */,
+				C7653CC5229DDD3D00777D13 /* Merkletree.swift */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+		C7653CBD229CA0F700777D13 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C7653CBE229CA10E00777D13 /* Typealias.swift */,
+				C7653CCC229DF09E00777D13 /* Data.swift */,
+				C7653CCE229DF0BA00777D13 /* Uint64.swift */,
+				C7653CD2229DF0DB00777D13 /* String.swift */,
+				C7653CC0229CA1CA00777D13 /* ZKProofOfConcept-Bridging-Header.h */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +219,7 @@
 				TargetAttributes = {
 					C7653C93229C809900777D13 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					C7653CA5229C809D00777D13 = {
 						CreatedOnToolsVersion = 10.1;
@@ -195,8 +270,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7653CC6229DDD3D00777D13 /* Merkletree.swift in Sources */,
+				C7653CD1229DF0CA00777D13 /* Uint64.swift in Sources */,
+				C7653CD4229DF0FB00777D13 /* String.swift in Sources */,
 				C7653C9A229C809900777D13 /* ViewController.swift in Sources */,
+				C7653CBC229CA0DD00777D13 /* Block.swift in Sources */,
 				C7653C98229C809900777D13 /* AppDelegate.swift in Sources */,
+				C7653CBA229C8D6000777D13 /* SHA256.swift in Sources */,
+				C7653CBF229CA10E00777D13 /* Typealias.swift in Sources */,
+				C7653CC4229CB86900777D13 /* Pedersen.swift in Sources */,
+				C7653CD0229DF0C800777D13 /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,7 +287,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7653CC8229DEFB800777D13 /* Sha256Tests.swift in Sources */,
 				C7653CAB229C809D00777D13 /* ZKProofOfConceptTests.swift in Sources */,
+				C7653CD6229DF30B00777D13 /* MerkletreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZKProofOfConcept/ZKProofOfConcept.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -360,6 +446,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.composite.ZKProofOfConcept;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Blockchain/Utils/ZKProofOfConcept-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -368,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZKProofOfConcept/ZKProofOfConcept.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -379,6 +468,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.composite.ZKProofOfConcept;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Blockchain/Utils/ZKProofOfConcept-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
