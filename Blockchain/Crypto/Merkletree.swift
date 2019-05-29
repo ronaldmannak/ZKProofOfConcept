@@ -39,7 +39,7 @@ public class Merkletree {
                 let combinedHash = left.hash.hexDescription + right.hash.hexDescription
                 internalNodes.append(Merkletree(hash: (combinedHash).sha256, left: left, right: right))
             }
-            nodeArray = internalNodes
+            nodeArray = internalNodes.count == 1 ? internalNodes : prepare(internalNodes) as! [Merkletree]
         }
         
         return nodeArray.first!
