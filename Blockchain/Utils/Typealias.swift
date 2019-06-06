@@ -19,6 +19,12 @@ public typealias Address = Data
 /// The private key
 //public typealias PrivateKey = String
 
+public typealias AccountAddress = String
+
+public typealias ContractAddress = String
+
+public typealias ContractMetadataAddress = String
+
 /// Reference to the transaction ID
 public typealias TransactionId = Data
 
