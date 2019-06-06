@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C70033E022A8E3B000811E29 /* BlockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033DF22A8E3B000811E29 /* BlockData.swift */; };
+		C70033E422A9B1F200811E29 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033E322A9B1F200811E29 /* Contract.swift */; };
+		C70033E622A9B21500811E29 /* ContractMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033E522A9B21500811E29 /* ContractMetadata.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		C70033DF22A8E3B000811E29 /* BlockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockData.swift; sourceTree = "<group>"; };
+		C70033E322A9B1F200811E29 /* Contract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
+		C70033E522A9B21500811E29 /* ContractMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractMetadata.swift; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +93,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C70033E722A9B72700811E29 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		C7653C8B229C809900777D13 = {
 			isa = PBXGroup;
 			children = (
@@ -136,7 +147,8 @@
 		C7653CB5229C8CE000777D13 /* Blockchain */ = {
 			isa = PBXGroup;
 			children = (
-				C7653CD7229F2A1700777D13 /* Elements */,
+				C70033E722A9B72700811E29 /* Account */,
+				C7653CD7229F2A1700777D13 /* Chain */,
 				C7653CBD229CA0F700777D13 /* Utils */,
 				C7653CB8229C8D4F00777D13 /* Crypto */,
 			);
@@ -167,7 +179,7 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		C7653CD7229F2A1700777D13 /* Elements */ = {
+		C7653CD7229F2A1700777D13 /* Chain */ = {
 			isa = PBXGroup;
 			children = (
 				C7653CBB229CA0DD00777D13 /* Block.swift */,
@@ -176,8 +188,10 @@
 				C7653CDB229F2A3B00777D13 /* Transaction.swift */,
 				C7653CE1229F6BD700777D13 /* Transaction+validation.swift */,
 				C7653CDD229F2A6800777D13 /* Predicate.swift */,
+				C70033E322A9B1F200811E29 /* Contract.swift */,
+				C70033E522A9B21500811E29 /* ContractMetadata.swift */,
 			);
-			path = Elements;
+			path = Chain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,8 +300,10 @@
 				C7653CD1229DF0CA00777D13 /* Uint64.swift in Sources */,
 				C7653CE4229F6DB300777D13 /* ZKProof.swift in Sources */,
 				C7653CE0229F5C3600777D13 /* ZKError.swift in Sources */,
+				C70033E622A9B21500811E29 /* ContractMetadata.swift in Sources */,
 				C7653CD4229DF0FB00777D13 /* String.swift in Sources */,
 				C7653C9A229C809900777D13 /* ViewController.swift in Sources */,
+				C70033E422A9B1F200811E29 /* Contract.swift in Sources */,
 				C7653CBC229CA0DD00777D13 /* Block.swift in Sources */,
 				C7653C98229C809900777D13 /* AppDelegate.swift in Sources */,
 				C70033E022A8E3B000811E29 /* BlockData.swift in Sources */,

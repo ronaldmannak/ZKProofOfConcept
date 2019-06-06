@@ -68,7 +68,7 @@ extension Block {
     
     public func isValid(result: (Bool) -> Void) {
         
-        guard self.sha256 == self.roots.sha256  else {
+        guard self.sha256 == self.roots.sha256 else {
             result(false)
             return
         }
