@@ -65,10 +65,7 @@ class KeyTests: XCTestCase {
             let data1 = "1234".data(using: .utf8)!.sha256
             let data2 = "æøå".data(using: .utf8)!.sha256
             let secondKey = try Key(with: UUID())
-            
-            print(String(bytes: data1, encoding: .utf8)!)
-            print(String(bytes: data2, encoding: .utf8)!)
-            
+                        
             // Verify sign returns non empty values
             XCTAssertFalse(try key.sign(data1).isEmpty)
             XCTAssertFalse(try key.sign(data2).isEmpty)

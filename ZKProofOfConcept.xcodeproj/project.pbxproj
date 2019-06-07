@@ -17,6 +17,8 @@
 		C70033EF22A9DBA600811E29 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033EE22A9DBA600811E29 /* Key.swift */; };
 		C70033F122A9EBAB00811E29 /* BlockData+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033F022A9EBAB00811E29 /* BlockData+Query.swift */; };
 		C70033F322AA360D00811E29 /* Block+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033F222AA360D00811E29 /* Block+Validation.swift */; };
+		C70033F522AA3EDF00811E29 /* ConvenienceFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033F422AA3EDF00811E29 /* ConvenienceFunctions.swift */; };
+		C70033F622AA3F2200811E29 /* KeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CC9229DEFD500777D13 /* KeyTests.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -57,6 +59,7 @@
 		C70033EE22A9DBA600811E29 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		C70033F022A9EBAB00811E29 /* BlockData+Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockData+Query.swift"; sourceTree = "<group>"; };
 		C70033F222AA360D00811E29 /* Block+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+Validation.swift"; sourceTree = "<group>"; };
+		C70033F422AA3EDF00811E29 /* ConvenienceFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvenienceFunctions.swift; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 				C7653CC7229DEFB800777D13 /* Sha256Tests.swift */,
 				C7653CD5229DF30B00777D13 /* MerkletreeTests.swift */,
 				C7653CC9229DEFD500777D13 /* KeyTests.swift */,
+				C70033F422AA3EDF00811E29 /* ConvenienceFunctions.swift */,
 				C7653CAC229C809D00777D13 /* Info.plist */,
 			);
 			path = ZKProofOfConceptTests;
@@ -262,6 +266,11 @@
 					C7653C93229C809900777D13 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					C7653CA5229C809D00777D13 = {
 						CreatedOnToolsVersion = 10.1;
@@ -344,8 +353,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7653CC8229DEFB800777D13 /* Sha256Tests.swift in Sources */,
+				C70033F622AA3F2200811E29 /* KeyTests.swift in Sources */,
 				C7653CAB229C809D00777D13 /* ZKProofOfConceptTests.swift in Sources */,
 				C7653CD6229DF30B00777D13 /* MerkletreeTests.swift in Sources */,
+				C70033F522AA3EDF00811E29 /* ConvenienceFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
