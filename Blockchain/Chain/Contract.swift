@@ -8,6 +8,13 @@
 
 import Foundation
 
-public struct Contract {
+public struct Contract: Codable, Equatable {
     
+}
+
+extension Contract: Sha256Hashable {
+    
+    public var sha256: Sha256Hash {
+        return try! JSONEncoder().encode(self).sha256
+    }
 }

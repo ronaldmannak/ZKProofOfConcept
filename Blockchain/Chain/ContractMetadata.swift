@@ -8,6 +8,13 @@
 
 import Foundation
 
-public struct ContractMetadata {
+public struct ContractMetadata: Codable, Equatable {
     
+}
+
+extension ContractMetadata: Sha256Hashable {
+    
+    public var sha256: Sha256Hash {
+        return try! JSONEncoder().encode(self).sha256
+    }
 }

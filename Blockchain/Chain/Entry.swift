@@ -24,11 +24,9 @@ public struct Entry: Codable, Equatable {
     
     public let spendPredicate: Predicate // Or address in contract address space
     
-    public let spendPredicateArguments: [String: String]
+    public let spendPredicateArguments: [String: String]?
     
-    public let data: Data
-    
-//    let proof: ZKProof
+    public let data: Data?
 }
 
 extension Entry: Sha256Hashable {

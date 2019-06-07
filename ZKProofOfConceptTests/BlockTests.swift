@@ -30,7 +30,7 @@ class BlockTests: XCTestCase {
             genesis = try Block()
             
             // Create valid block
-            validBlock = try createValidBlock(from: key, previous: genesis)
+//            validBlock = try createValidBlock(from: key, previous: genesis)
             
         } catch {
             XCTFail("Unexpected error: \(error)")
@@ -43,11 +43,13 @@ class BlockTests: XCTestCase {
     }
     
     func testGenesis() {
+        XCTAssertNotNil(genesis)
         XCTAssertTrue(genesis.isValid)
         XCTAssertTrue(genesis.isValidGenesis)
     }
     
     func testValidBlock() {
+        XCTAssertNotNil(validBlock)
         XCTAssertTrue(validBlock.isValid)
         XCTAssertFalse(validBlock.isValidGenesis)
     }

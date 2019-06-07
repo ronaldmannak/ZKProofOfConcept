@@ -26,7 +26,7 @@ public typealias ContractMetadataAddress = Address
 public typealias TransactionId = Sha256Hash
 
 /// Amount of coins
-public typealias Balance = UInt64
+public typealias Amount = UInt64
 
 public typealias Sha256Hash = Data
 

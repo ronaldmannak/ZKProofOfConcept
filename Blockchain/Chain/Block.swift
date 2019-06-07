@@ -22,11 +22,11 @@ public struct Roots: Codable, Equatable, Sha256Hashable {
     // Merkle roots
     public let balancesRoot: Sha256Hash
     
-    public let contractsRoot: Sha256Hash
+    public let contractsRoot: Sha256Hash?
     
-    public let metadataRoot: Sha256Hash
+    public let metadataRoot: Sha256Hash?
     
-    public let transactionsRoot: Sha256Hash
+    public let transactionsRoot: Sha256Hash?
     
     /// Stored zero knowledge proof
     public let proof: ZKProof
@@ -36,15 +36,15 @@ public struct Roots: Codable, Equatable, Sha256Hashable {
         return try! JSONEncoder().encode(self).sha256
     }
     
-    init(previous: Block?, balances: Merkletree, contracts: Merkletree, transactions: Merkletree, metadata: Merkletree) {
+    init(previous: Block?, balancesRoot: Sha256Hash, contractsRoot: Sha256Hash, transactionsRoot: Sha256Hash, metadataRoot: Sha256Hash) {
         
         self.previousBlockHash = previous?.sha256
-        self.height = (previous?.roots.height == nil ? 0 : previous!.roots.height + 1)
+        self.height = previous?.roots.height == nil ? 0 : previous!.roots.height + 1
         self.timestamp = Date.timeIntervalSinceReferenceDate
-        self.balancesRoot = balances.hash
-        self.contractsRoot = contracts.hash
-        self.metadataRoot = metadata.hash
-        self.transactionsRoot = transactions.hash
+        self.balancesRoot = balancesRoot
+        self.contractsRoot = contractsRoot
+        self.metadataRoot = metadataRoot
+        self.transactionsRoot = transactionsRoot
         self.proof = ZKProof(a: ["test"], b: ["test"], c: ["test"], inputs: ["test"]) // temp
     }
 }
@@ -60,6 +60,29 @@ public struct Block: Codable, Equatable, Sha256Hashable {
     init(roots: Roots) {
         self.roots = roots
         sha256 = roots.sha256
+    }
+    
+    /// Create genesis block
+    /// Creates 10 accounts with each 15,000 tokens
+    init(amount: Amount = 15_000) throws {
+        
+        // 1. Create 10 accounts and set initial amounts
+        var accounts = [Account]()
+        var balances = [Entry]()
+        for i in 0 ..< 10 {
+            
+            let account = try Account(named: "Account\(i)")
+            accounts.append(account)
+            
+            let entry = Entry(owner: account.address, balance: amount, entryType: .fungible, type: Data(), spendPredicate: Predicate(), spendPredicateArguments: nil, data: nil)
+            balances.append(entry)
+        }
+        
+        // 2. Create roots
+        let roots = Roots(previous: nil, balancesRoot: balances.sha256, contractsRoot: Data(), transactionsRoot: Data(), metadataRoot: Data())
+        
+        // 3. init self.
+        self.init(roots: roots)
     }
 }
 

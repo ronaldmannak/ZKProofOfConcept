@@ -20,6 +20,9 @@
 		C70033F522AA3EDF00811E29 /* ConvenienceFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033F422AA3EDF00811E29 /* ConvenienceFunctions.swift */; };
 		C70033F622AA3F2200811E29 /* KeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CC9229DEFD500777D13 /* KeyTests.swift */; };
 		C705D4E322AA426E003C0EAD /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E222AA426E003C0EAD /* TransactionTests.swift */; };
+		C705D4E822AAB7F4003C0EAD /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E622AAB7EC003C0EAD /* Wallet.swift */; };
+		C705D4E922AAB7F7003C0EAD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E422AAB7D7003C0EAD /* Account.swift */; };
+		C705D4EA22AB1F62003C0EAD /* BlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E022AA4260003C0EAD /* BlockTests.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -63,6 +66,8 @@
 		C70033F422AA3EDF00811E29 /* ConvenienceFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvenienceFunctions.swift; sourceTree = "<group>"; };
 		C705D4E022AA4260003C0EAD /* BlockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTests.swift; sourceTree = "<group>"; };
 		C705D4E222AA426E003C0EAD /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
+		C705D4E422AAB7D7003C0EAD /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		C705D4E622AAB7EC003C0EAD /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +119,8 @@
 		C70033E722A9B72700811E29 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				C705D4E422AAB7D7003C0EAD /* Account.swift */,
+				C705D4E622AAB7EC003C0EAD /* Wallet.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -327,10 +334,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7653CC6229DDD3D00777D13 /* Merkletree.swift in Sources */,
+				C705D4E922AAB7F7003C0EAD /* Account.swift in Sources */,
 				C7653CDE229F2A6800777D13 /* Predicate.swift in Sources */,
 				C70033F322AA360D00811E29 /* Block+Validation.swift in Sources */,
 				C7653CD1229DF0CA00777D13 /* Uint64.swift in Sources */,
 				C7653CE4229F6DB300777D13 /* ZKProof.swift in Sources */,
+				C705D4E822AAB7F4003C0EAD /* Wallet.swift in Sources */,
 				C7653CE0229F5C3600777D13 /* ZKError.swift in Sources */,
 				C70033EB22A9CF9B00811E29 /* Recipient.swift in Sources */,
 				C70033E622A9B21500811E29 /* ContractMetadata.swift in Sources */,
@@ -360,6 +369,7 @@
 				C7653CC8229DEFB800777D13 /* Sha256Tests.swift in Sources */,
 				C70033F622AA3F2200811E29 /* KeyTests.swift in Sources */,
 				C7653CAB229C809D00777D13 /* ZKProofOfConceptTests.swift in Sources */,
+				C705D4EA22AB1F62003C0EAD /* BlockTests.swift in Sources */,
 				C705D4E322AA426E003C0EAD /* TransactionTests.swift in Sources */,
 				C7653CD6229DF30B00777D13 /* MerkletreeTests.swift in Sources */,
 				C70033F522AA3EDF00811E29 /* ConvenienceFunctions.swift in Sources */,

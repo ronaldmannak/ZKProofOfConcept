@@ -100,7 +100,7 @@ struct Key {
         }
         
         // 5.   Private key attributes
-        var privateKeyAttributes: [String: Any] = [
+        let privateKeyAttributes: [String: Any] = [
             kSecClass as String:                    kSecClassKey,
             kSecAttrKeyClass as String:             kSecAttrKeyClassPrivate,
             //            kSecReturnRef as String: true,
