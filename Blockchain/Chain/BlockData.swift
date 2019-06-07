@@ -32,6 +32,6 @@ public struct BlockData {
         
         // 2. Check if merkle trees are valid
         
-        return true
+        return false
     }
 }
