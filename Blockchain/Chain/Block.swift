@@ -26,6 +26,8 @@ public struct Roots: Codable, Equatable, Sha256Hashable {
     
     public let metadataRoot: Sha256Hash
     
+    public let transactionsRoot: Sha256Hash
+    
     /// Stored zero knowledge proof
     public let proof: ZKProof
     
@@ -34,7 +36,7 @@ public struct Roots: Codable, Equatable, Sha256Hashable {
         return try! JSONEncoder().encode(self).sha256
     }
     
-    init(previous: Block?, balances: Merkletree, contracts: Merkletree, metadata: Merkletree) {
+    init(previous: Block?, balances: Merkletree, contracts: Merkletree, transactions: Merkletree, metadata: Merkletree) {
         
         self.previousBlockHash = previous?.sha256
         self.height = (previous?.roots.height == nil ? 0 : previous!.roots.height + 1)
@@ -42,6 +44,7 @@ public struct Roots: Codable, Equatable, Sha256Hashable {
         self.balancesRoot = balances.hash
         self.contractsRoot = contracts.hash
         self.metadataRoot = metadata.hash
+        self.transactionsRoot = transactions.hash
         self.proof = ZKProof(a: ["test"], b: ["test"], c: ["test"], inputs: ["test"]) // temp
     }
 }
@@ -64,18 +67,6 @@ extension Block {
     
     public static func createBlock(previous: Block? = nil, balances: Merkletree, contracts: Merkletree, metadata: Merkletree, result: (Block, BlockData) -> Void) {
         
-    }
-    
-    public func isValid(result: (Bool) -> Void) {
-        
-        guard self.sha256 == self.roots.sha256 else {
-            result(false)
-            return
-        }
-        
-        // TODO: validate proof
-        
-        result(true)
     }
     
 }

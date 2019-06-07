@@ -17,7 +17,7 @@ public struct Recipient: Codable, Equatable {
 
 extension Recipient: Sha256Hashable {
     
-    public var sha256:      Sha256Hash {
+    public var sha256: Sha256Hash {
         return try! JSONEncoder().encode(self).sha256
     }
 }

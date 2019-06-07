@@ -15,6 +15,8 @@
 		C70033EB22A9CF9B00811E29 /* Recipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033EA22A9CF9B00811E29 /* Recipient.swift */; };
 		C70033ED22A9D53E00811E29 /* TransactionProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033EC22A9D53E00811E29 /* TransactionProof.swift */; };
 		C70033EF22A9DBA600811E29 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033EE22A9DBA600811E29 /* Key.swift */; };
+		C70033F122A9EBAB00811E29 /* BlockData+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033F022A9EBAB00811E29 /* BlockData+Query.swift */; };
+		C70033F322AA360D00811E29 /* Block+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70033F222AA360D00811E29 /* Block+Validation.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -53,6 +55,8 @@
 		C70033EA22A9CF9B00811E29 /* Recipient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipient.swift; sourceTree = "<group>"; };
 		C70033EC22A9D53E00811E29 /* TransactionProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionProof.swift; sourceTree = "<group>"; };
 		C70033EE22A9DBA600811E29 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		C70033F022A9EBAB00811E29 /* BlockData+Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockData+Query.swift"; sourceTree = "<group>"; };
+		C70033F222AA360D00811E29 /* Block+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+Validation.swift"; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -192,7 +196,9 @@
 			isa = PBXGroup;
 			children = (
 				C7653CBB229CA0DD00777D13 /* Block.swift */,
+				C70033F222AA360D00811E29 /* Block+Validation.swift */,
 				C70033DF22A8E3B000811E29 /* BlockData.swift */,
+				C70033F022A9EBAB00811E29 /* BlockData+Query.swift */,
 				C7653CD8229F2A2900777D13 /* Entry.swift */,
 				C70033EA22A9CF9B00811E29 /* Recipient.swift */,
 				C7653CDB229F2A3B00777D13 /* Transaction.swift */,
@@ -308,6 +314,7 @@
 			files = (
 				C7653CC6229DDD3D00777D13 /* Merkletree.swift in Sources */,
 				C7653CDE229F2A6800777D13 /* Predicate.swift in Sources */,
+				C70033F322AA360D00811E29 /* Block+Validation.swift in Sources */,
 				C7653CD1229DF0CA00777D13 /* Uint64.swift in Sources */,
 				C7653CE4229F6DB300777D13 /* ZKProof.swift in Sources */,
 				C7653CE0229F5C3600777D13 /* ZKError.swift in Sources */,
@@ -326,6 +333,7 @@
 				C7653CBA229C8D6000777D13 /* SHA256.swift in Sources */,
 				C7653CBF229CA10E00777D13 /* Typealias.swift in Sources */,
 				C70033E922A9BDA100811E29 /* Transaction+validation.swift in Sources */,
+				C70033F122A9EBAB00811E29 /* BlockData+Query.swift in Sources */,
 				C7653CC4229CB86900777D13 /* Pedersen.swift in Sources */,
 				C7653CD0229DF0C800777D13 /* Data.swift in Sources */,
 			);

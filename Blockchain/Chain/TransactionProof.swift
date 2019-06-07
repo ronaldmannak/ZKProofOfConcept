@@ -13,6 +13,9 @@ public struct TransactionProof {
     
     let transaction: Transaction
     
+    // updated entries of both sender and receiver(s)
+    public let outputs: [Entry]
+    
     let proof: ZKProof
     
     // If false, Transaction uses swift implementation

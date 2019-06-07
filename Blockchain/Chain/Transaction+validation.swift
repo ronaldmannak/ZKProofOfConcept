@@ -29,8 +29,8 @@ extension Transaction {
      - throws:      Forwards error from Apple's encryption framework
      */
     public func isUnaltered() throws -> Bool {
-        let key = try Key(from: sender)
-        return try key.verify(signature: signature, digest: Transaction.hash(inputs: inputs, recipients: recipients))
+        let key = try Key(from: self.message.sender)
+        return try key.verify(signature: self.signature, digest: self.message.sha256)
     }
     
     /**
@@ -38,8 +38,9 @@ extension Transaction {
      - returns:     true if the transaction is a genesis transaction
      */
     public var isGenesisTransaction: Bool {
-        guard inputs.count == 0, outputs.count == 1 else { return false }
-        guard sender == Data(), signature == Data() else { return false }
+        return false
+//        guard inputs.count == 0, outputs.count == 1 else { return false }
+//        guard sender == Data(), signature == Data() else { return false }
         return true
     }
 }
@@ -53,7 +54,7 @@ extension Transaction: Sha256Hashable {
 
 extension Transaction: CustomStringConvertible {
     public var description: String {
-        return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(sender.suffix(4)), \ninputs: \(self.inputs) \noutputs: \(self.recipients)"
+        return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(message.sender.suffix(4))" //", \ninputs: \(self.inputs) \noutputs: \(self.recipients)"
     }
 }
 
@@ -62,15 +63,17 @@ extension Transaction {
     private func sanityCheck() throws {
         
         // 1. Are all inputs owned by sender?
-        let publicKey = try Key(from: sender).exportKey()
-        guard inputs.filter({ $0.owner == publicKey }).count == inputs.count else {
+        let publicKey = try Key(from: self.message.sender).exportKey()
+        guard self.message.inputs.filter({ $0.owner == publicKey }).count == self.message.inputs.count else {
             throw ZKError.inputsNotOwnedBySender
         }
         
+        // 2. Are all types of inputs 
+        
         // 2. Is balance sufficient?
         // TODO: calculate spendable amount (check predicates)
-        let availableBalance = self.inputs.reduce(0, { $0 + $1.balance })
-        let spentAmount = self.outputs.reduce(0, { $0 + $1.balance })
+        let availableBalance = self.message.inputs.reduce(0, { $0 + $1.balance })
+        let spentAmount = self.message.recipients.reduce(0, { $0 + $1.amount })
 
         guard availableBalance >= spentAmount else {
             throw ZKError.insufficientBalance("Short \(spentAmount - availableBalance) tokens")
@@ -78,7 +81,9 @@ extension Transaction {
         
         // 3. Are no new coins generated?
         
-        // 3. Are outputs correct?
+        // 4. Are outputs correct?
+        
+        // 5. Is nonce higher than previous nonce (how to check that?)
         
     }
     

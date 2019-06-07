@@ -14,11 +14,13 @@ public enum EntryType: Int, Codable, Equatable {
 
 public struct Entry: Codable, Equatable {
     
+    public let owner: AccountAddress
+    
     public let balance: uint64 // balance or amount
     
     public let entryType: EntryType
     
-    public let owner: Sha256Hash
+    public let type: ContractAddress
     
     public let spendPredicate: Predicate // Or address in contract address space
     
@@ -31,7 +33,7 @@ public struct Entry: Codable, Equatable {
 
 extension Entry: Sha256Hashable {
     
-    public var sha256:      Sha256Hash {
+    public var sha256: Sha256Hash {
         return try! JSONEncoder().encode(self).sha256
     }
 }

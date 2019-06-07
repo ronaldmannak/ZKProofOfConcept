@@ -22,6 +22,10 @@ public struct BlockData {
     
     public let metadata: [ContractMetadata]
     
+    public let transactionsTree: Merkletree
+    
+    public let transactions: [TransactionProof]
+    
     public var isValid: Bool {
         
         // 1. Confirm that hash of every entry, contract, and metadata is in the leaves
