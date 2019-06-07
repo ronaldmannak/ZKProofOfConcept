@@ -17,8 +17,8 @@ extension Transaction {
      - parameter inputs:        Array of the inputs in the transaction.
      - parameter outputs:       Array of the outputs in the transaction.
      */
-    public static func hash(_ inputs: [TxInput], _ outputs: [TxOutput], proof: ZKProof) -> Data {
-        return [inputs.sha256, outputs.sha256].sha256
+    public static func hash(inputs: [Entry], recipients: [Recipient]) -> Data {
+        return [inputs.sha256, recipients.sha256].sha256
     }
     
     /**
@@ -30,7 +30,7 @@ extension Transaction {
      */
     public func isUnaltered() throws -> Bool {
         let key = try Key(from: sender)
-        return try key.verify(signature: signature, digest: Transaction.hash(inputs, outputs))
+        return try key.verify(signature: signature, digest: Transaction.hash(inputs: inputs, recipients: recipients))
     }
     
     /**
@@ -53,6 +53,33 @@ extension Transaction: Sha256Hashable {
 
 extension Transaction: CustomStringConvertible {
     public var description: String {
-        return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(sender.hexDescription.suffix(4)), \ninputs: \(inputs) \noutputs: \(outputs)"
+        return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(sender.suffix(4)), \ninputs: \(self.inputs) \noutputs: \(self.recipients)"
     }
+}
+
+extension Transaction {
+    
+    private func sanityCheck() throws {
+        
+        // 1. Are all inputs owned by sender?
+        let publicKey = try Key(from: sender).exportKey()
+        guard inputs.filter({ $0.owner == publicKey }).count == inputs.count else {
+            throw ZKError.inputsNotOwnedBySender
+        }
+        
+        // 2. Is balance sufficient?
+        // TODO: calculate spendable amount (check predicates)
+        let availableBalance = self.inputs.reduce(0, { $0 + $1.balance })
+        let spentAmount = self.outputs.reduce(0, { $0 + $1.balance })
+
+        guard availableBalance >= spentAmount else {
+            throw ZKError.insufficientBalance("Short \(spentAmount - availableBalance) tokens")
+        }
+        
+        // 3. Are no new coins generated?
+        
+        // 3. Are outputs correct?
+        
+    }
+    
 }

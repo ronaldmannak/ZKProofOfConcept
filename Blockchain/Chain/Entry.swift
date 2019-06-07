@@ -18,7 +18,7 @@ public struct Entry: Codable, Equatable {
     
     public let entryType: EntryType
     
-    public let publicKey: Sha256Hash
+    public let owner: Sha256Hash
     
     public let spendPredicate: Predicate // Or address in contract address space
     
@@ -27,4 +27,17 @@ public struct Entry: Codable, Equatable {
     public let data: Data
     
 //    let proof: ZKProof
+}
+
+extension Entry: Sha256Hashable {
+    
+    public var sha256:      Sha256Hash {
+        return try! JSONEncoder().encode(self).sha256
+    }
+}
+
+extension Entry: CustomStringConvertible {
+    public var description: String {
+        return "to: ..." + owner.hexDescription.suffix(4) + ", balance: \(balance)"
+    }
 }

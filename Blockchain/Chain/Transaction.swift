@@ -8,7 +8,6 @@
 
 import Foundation
 
-/// This should be a ZK proof with the old state and
 public struct Transaction: Codable, Equatable {
  
     /// A hash of all inputs and outputs in this transaction (excluding signatures)
@@ -18,29 +17,24 @@ public struct Transaction: Codable, Equatable {
     
     /// Entries owned by sender. In case of multiple inputs,
     /// the inputs will be used in provided order
-    let inputs: [Entry]
+    public let inputs: [Entry]
     
-    let amount: uint64
-    
-    let receivers: [String: UInt64]
+    public let recipients: [Recipient]
     
     // updated entries of both sender and receiver(s)
-    fileprivate var outputs: [Entry]?
+    public let outputs: [Entry]
     
-//    let proof: ZKProof
+    let sender: AccountAddress
     
-    // If false, Transaction uses swift implementation
-    let useZK: Bool
-    
-    init(<#parameters#>) {
-        <#statements#>
-    }
-    
-    public init(sender: Address, inputs: [TxInput], outputs: [TxOutput], sign: (Digest) throws -> Signature) throws {
+    /// Single signature of the transaction's hash
+    /// The signature guarantees the inputs and outputs are unaltered,
+    public let signature: Signature
         
-        // 1.   Set inputs and outputs
+    public init(sender: AccountAddress, inputs: [Entry], recipients: [Recipient], sign: (Digest) throws -> Signature) throws {
+        
+        // 1.   Set inputs and receivers
         self.inputs = inputs
-        self.outputs = outputs
+        self.recipients = recipients
         
         // 2.   Store address of sender. All outputs referenced
         //      in the inputs property of the transaction must
@@ -51,7 +45,7 @@ public struct Transaction: Codable, Equatable {
         //      (Alternatively, we could not sign the inputs and
         //      outputs separately, but just a single signature
         //      in transaction of the combined hashses.)
-        id = Transaction.hash(self.inputs, self.outputs)
+        id = Transaction.hash(inputs: self.inputs, recipients: self.recipients)
         
         // 4.   Sign the hash of the inputs and outputs
         //      If the inputs or outputs are unaltered after signing,
@@ -61,63 +55,10 @@ public struct Transaction: Codable, Equatable {
         //      the inputs and outputs have been altered after signing
         //      and the transaction is not valid
         signature = try sign(id)
+        
+        
+        // create outputs
     }
 }
 
-extension Transaction {
-    
-    func execute() throws {
-        
-        // If transaction doesn't pass sanity test, there's no need to proceed
-        try sanityChecks()
-        
-        if useZK == true {
-            try executeZK()
-        } else {
-            try executeSwift()
-        }
-    }
-    
-    private func executeSwift() throws {
-        
-        
-        var amount = self.amount
-        
-        for input in inputs {
-            
-        }
-        
-        while amount > 0 {
-            
-            
-            
-            
-        }
-        
-        guard amount == 0 else {
-            throw ZKError.insufficientBalance("Short \(amount) tokens")
-        }
-        
-    }
-    
-    private func executeZK() throws {
-        
-    }
-    
-    private func sanityChecks() throws {
-        
-        // sanity checks
-        // 1. Are all inputs from same type?
-        
-        // 2. Is balance sufficient?
-        let availableBalance = inputs.reduce(0, { $0 + $1.balance })
-        guard availableBalance >= self.amount else {
-            throw ZKError.insufficientBalance("Short \(self.amount - availableBalance) tokens")
-        }
-        
-        // 3. Are inputs owned by sender?
-//        guard
 
-    }
-
-}

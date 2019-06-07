@@ -36,3 +36,10 @@ public extension ZKProof {
         return false
     }
 }
+
+extension ZKProof: Sha256Hashable {
+    
+    public var sha256:      Sha256Hash {
+        return try! JSONEncoder().encode(self).sha256
+    }
+}

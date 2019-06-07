@@ -16,17 +16,14 @@ import Foundation
 /// export method in Crypto
 public typealias Address = Data
 
-/// The private key
-//public typealias PrivateKey = String
+public typealias AccountAddress = Address
 
-public typealias AccountAddress = String
+public typealias ContractAddress = Address
 
-public typealias ContractAddress = String
-
-public typealias ContractMetadataAddress = String
+public typealias ContractMetadataAddress = Address
 
 /// Reference to the transaction ID
-public typealias TransactionId = Data
+public typealias TransactionId = Sha256Hash
 
 /// Amount of coins
 public typealias Balance = UInt64
