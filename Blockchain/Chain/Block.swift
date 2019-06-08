@@ -62,6 +62,11 @@ public struct Block: Codable, Equatable, Sha256Hashable {
         sha256 = roots.sha256
     }
     
+    public static func mine(previous: Block, ) {
+        
+        
+    }
+    
     /// Create genesis block
     /// Creates 10 accounts with each 15,000 tokens
     public static func createGenesis(amount: Amount = 15_000) throws -> (Block, BlockData){

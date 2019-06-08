@@ -22,9 +22,9 @@ public struct BlockData {
     
     public let metadata: [ContractMetadata]
     
-    public let transactionsTree: Merkletree
+    public let transactionsTree: Merkletree?
     
-    public let transactions: [TransactionProof]
+    public let transactions: [TransactionProof]?
     
     public var isValid: Bool {
         
@@ -33,5 +33,27 @@ public struct BlockData {
         // 2. Check if merkle trees are valid
         
         return false
+    }
+}
+
+extension BlockData {
+    
+    public init(balances: [Entry], contracts: [Contract], metadata: [ContractMetadata], transactions: [Transaction]) {
+        
+        self.balances = balances
+        self.balancesTree = Merkletree.create(with: balances.map{ $0.sha256 })
+        
+        self.contracts = contracts
+        self.contractsTree = Merkletree.create(with: contracts.map{ $0.sha256 })
+        
+        self.metadata = metadata
+        self.metadataTree = Merkletree.create(with: metadata.map{ $0.sha256 })
+        
+        self.transactions = transactions.map{ $0.p}
+        self.transactionsTree = Merkletree.create(with: transactions.map{ $0.sha256 }),
+        metadataTree: Merkletree.create(with: [Data().sha256]),
+        metadata: [ContractMetadata](),
+        transactionsTree: Merkletree.create(with: [Data().sha256]),
+        transactions: [TransactionProof]())
     }
 }

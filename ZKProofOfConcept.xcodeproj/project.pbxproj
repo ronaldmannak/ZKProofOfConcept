@@ -125,6 +125,13 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
+		C705D4EB22AB363F003C0EAD /* Consensus */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Consensus;
+			sourceTree = "<group>";
+		};
 		C7653C8B229C809900777D13 = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +182,7 @@
 		C7653CB5229C8CE000777D13 /* Blockchain */ = {
 			isa = PBXGroup;
 			children = (
+				C705D4EB22AB363F003C0EAD /* Consensus */,
 				C70033E722A9B72700811E29 /* Account */,
 				C7653CD7229F2A1700777D13 /* Chain */,
 				C7653CBD229CA0F700777D13 /* Utils */,
