@@ -60,14 +60,12 @@ extension Transaction: CustomStringConvertible {
 
 extension Transaction {
     
-    
     /// A payment is valid if:
     /// 1. The transaction was signed with the public key of the sender
     /// 2. All inputs are of a single and the correct type
     /// 3. The sender owns all the inputs
     /// 4. The sender has enough balance to pay the amount and fee
     /// 5. The balances are unlocked
-    /// 6. No new coins are created
     /// - The sender has enough balance to pay out the fee and the amount
     /// - The reciever has enough room for the amount s.t. there won't be an overflow
     /// - The account nonce matches the nonce inside the payment.
@@ -105,32 +103,22 @@ extension Transaction {
             guard try publicKey.verify(signature: self.signature, digest: self.message.sha256) == true else {
                 throw ZKError.verificationError
             }
-            
 
-            
             // 3. Are all inputs owned by sender?
-            guard self.message.inputs.filter({ $0.owner == publicKeyData }).count == self.message.inputs.count else {
+            guard inputs.filter({ $0.owner == publicKeyData }).count == self.message.inputs.count else {
                 throw ZKError.inputsNotOwnedBySender
             }
             
             // 4. Is balance sufficient?
+            // TODO: check for overflow
             let availableBalance = self.message.inputs.reduce(0, { $0 + $1.balance })
             let spentAmount = self.message.recipients.reduce(0, { $0 + $1.amount })
             guard availableBalance >= spentAmount else {
                 throw ZKError.insufficientBalance("Short \(spentAmount - availableBalance) tokens")
             }
             
-            // 5. Are balances unlocked? Check predicates
-            
-            // TODO:
-            
-            // 6.
-            
-            // 3. Are no new coins generated?
-            
-            // 4. Are outputs correct?
-            
-            // 5. Is nonce higher than previous nonce (how to check that?)
+            // TODO: 5. Are balances unlocked? Check predicates
+
         } catch {
             result(false, error)
         }

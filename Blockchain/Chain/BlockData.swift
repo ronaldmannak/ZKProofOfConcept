@@ -8,22 +8,22 @@
 
 import Foundation
 
-public struct BlockData {
+public struct BlockData: Codable, Equatable {
     
     public let balancesTree: Merkletree
     
     public let balances: [Entry]
-    
+
     public let contractsTree: Merkletree
-    
+
     public let contracts: [Contract]
-    
+
     public let metadataTree: Merkletree
-    
+
     public let metadata: [ContractMetadata]
-    
+
     public let transactionsTree: Merkletree?
-    
+
     public let transactions: [TransactionProof]?
     
     public var isValid: Bool {
@@ -38,7 +38,7 @@ public struct BlockData {
 
 extension BlockData {
     
-    public init(balances: [Entry], contracts: [Contract], metadata: [ContractMetadata], transactions: [Transaction]) {
+    public init(balances: [Entry], contracts: [Contract], metadata: [ContractMetadata], transactions: [TransactionProof]) {
         
         self.balances = balances
         self.balancesTree = Merkletree.create(with: balances.map{ $0.sha256 })
@@ -49,11 +49,15 @@ extension BlockData {
         self.metadata = metadata
         self.metadataTree = Merkletree.create(with: metadata.map{ $0.sha256 })
         
-        self.transactions = transactions.map{ $0.p}
-        self.transactionsTree = Merkletree.create(with: transactions.map{ $0.sha256 }),
-        metadataTree: Merkletree.create(with: [Data().sha256]),
-        metadata: [ContractMetadata](),
-        transactionsTree: Merkletree.create(with: [Data().sha256]),
-        transactions: [TransactionProof]())
+        self.transactions = transactions
+        self.transactionsTree = Merkletree.create(with: transactions.map{ $0.transaction.sha256 })        
     }
+}
+
+extension BlockData: Sha256Hashable {
+    
+    public var sha256: Sha256Hash {
+        return try! JSONEncoder().encode(self).sha256
+    }
+
 }

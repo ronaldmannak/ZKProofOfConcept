@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class Merkletree {
+public final class Merkletree: Codable {
     
-    let hash: Hash
+    let hash: Sha256Hash
     let left: Merkletree?
     let right: Merkletree?
     
@@ -66,6 +66,19 @@ public class Merkletree {
             return evenHashes
         }
     }
+}
+
+extension Merkletree: Sha256Hashable {
     
+    public var sha256: Sha256Hash {
+        return hash
+    }
+
+}
+
+extension Merkletree: Equatable {
     
+    public static func == (lhs: Merkletree, rhs: Merkletree) -> Bool {
+        return lhs.hash == rhs.hash
+    }
 }

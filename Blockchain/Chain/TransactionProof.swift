@@ -37,3 +37,5 @@ public struct TransactionProof {
         
     }
 }
+
+extension TransactionProof: Codable, Equatable {}

@@ -70,7 +70,7 @@ public struct Transaction: Codable, Equatable {
         let inputs = blockData.quickFilterEntries(owner: sender, type: type)
         
         // 2. Set message
-        self.message = TransactionMessage(nonce: 1, inputs: inputs, type: type, recipients: recipients, sender: sender)
+        self.message = TransactionMessage(nonces: inputs.map{ $0.nonce }, inputs: inputs, type: type, recipients: recipients, sender: sender)
         
         // 3. Set transaction id to hash of message
         self.id = self.message.sha256
