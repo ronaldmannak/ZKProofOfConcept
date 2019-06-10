@@ -8,17 +8,18 @@
 
 import Foundation
 
-public enum EntryType: Int, Codable, Equatable {
-    case fungible = 0, nonFungible
-}
+// Move to contract
+//public enum EntryType: Int, Codable, Equatable {
+//    case fungible = 0, nonFungible
+//}
 
-public struct Entry: Codable, Equatable {
+public struct Entry {
     
     public let owner: AccountAddress
     
     public let balance: uint64 // balance or amount
     
-    public let entryType: EntryType
+//    public let entryType: EntryType
     
     public let type: ContractAddress
     
@@ -32,7 +33,7 @@ public struct Entry: Codable, Equatable {
     public var nonce: UInt64
 }
 
-extension Entry: Sha256Hashable {
+extension Entry: Sha256Hashable, Codable, Equatable {
     
     public var sha256: Sha256Hash {
         return try! JSONEncoder().encode(self).sha256

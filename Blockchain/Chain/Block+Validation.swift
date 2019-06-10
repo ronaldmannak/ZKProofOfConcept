@@ -37,7 +37,8 @@ extension Block {
             guard self.roots.balancesRoot == blockData.balancesTree.hash &&
                 self.roots.contractsRoot == blockData.contractsTree.hash &&
                 self.roots.metadataRoot == blockData.metadataTree.hash &&
-                self.roots.transactionsRoot == blockData.transactionsTree.hash else {
+                self.roots.transactionsRoot == blockData.transactionsTree?.hash
+                else {
                     
                     result(false)
                     return
