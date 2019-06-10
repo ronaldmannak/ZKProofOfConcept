@@ -11,6 +11,11 @@ import Foundation
 public enum ZKError: LocalizedError {
     
     case inputsNotOwnedBySender
+    
+    case multipleEntryTypes
+    
+    case nonceError
+    
     case insufficientBalance(String)
         
     case insufficientFunds(UInt64, UInt64)
@@ -39,6 +44,8 @@ public enum ZKError: LocalizedError {
     case errorCreatingPublicKey
     
     case encryptionError
+    
+    case verificationError
     
     /// Data too large to encrypt or not correct size to decrypt
     case sizeError

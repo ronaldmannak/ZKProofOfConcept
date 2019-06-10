@@ -12,8 +12,11 @@ public struct Transaction: Codable, Equatable {
     
     public struct TransactionMessage: Codable, Equatable, Sha256Hashable {
         
-        /// Counter
-        public let nonce: UInt64
+        /// Counters used for protection against double-application of payments.
+        /// The account nonce is incremented in the sender's account whenever
+        /// a transaction is created.
+        /// Each nonce should match the input Entry used, in order
+        public let nonces: [UInt64]
         
         /// Entries owned by sender. In case of multiple inputs,
         /// the inputs will be used in provided order
@@ -25,6 +28,8 @@ public struct Transaction: Codable, Equatable {
         public let recipients: [Recipient]
         
         let sender: AccountAddress
+        
+        let fee: UInt64 = 0
         
         public var sha256: Sha256Hash {
             return try! JSONEncoder().encode(self).sha256
@@ -55,6 +60,8 @@ public struct Transaction: Codable, Equatable {
     ///   - sign: <#sign description#>
     init(sender: AccountAddress, amount: UInt64, type: ContractAddress, recipients: [Recipient], block: Block, blockData: BlockData, sign: (Digest) throws -> Signature) throws {
         
+        // 1. Fetch account and nonce
+        
         // 1. Set nonce
         
         // 1. Fetch inputs owned by sender of the correct type.
@@ -74,6 +81,3 @@ public struct Transaction: Codable, Equatable {
     }
  
 }
-
-
-// Add proof here?

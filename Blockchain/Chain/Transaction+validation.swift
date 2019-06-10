@@ -28,10 +28,10 @@ extension Transaction {
      - returns:     True if the signature is
      - throws:      Forwards error from Apple's encryption framework
      */
-    public func isUnaltered() throws -> Bool {
-        let key = try Key(from: self.message.sender)
-        return try key.verify(signature: self.signature, digest: self.message.sha256)
-    }
+//    public func hasValidSignature() throws -> Bool {
+//        let key = try Key(from: self.message.sender)
+//        return try key.verify(signature: self.signature, digest: self.message.sha256)
+//    }
     
     /**
      Checks if the transaction is a genesis transaction.
@@ -60,30 +60,80 @@ extension Transaction: CustomStringConvertible {
 
 extension Transaction {
     
-    private func sanityCheck() throws {
+    
+    /// A payment is valid if:
+    /// 1. The transaction was signed with the public key of the sender
+    /// 2. All inputs are of a single and the correct type
+    /// 3. The sender owns all the inputs
+    /// 4. The sender has enough balance to pay the amount and fee
+    /// 5. The balances are unlocked
+    /// 6. No new coins are created
+    /// - The sender has enough balance to pay out the fee and the amount
+    /// - The reciever has enough room for the amount s.t. there won't be an overflow
+    /// - The account nonce matches the nonce inside the payment.
+    ///
+    /// - Throws: ZKError in case transaction is not valid
+    private func validate(blockData: BlockData, result: (Bool, Error?) -> Void) {
         
-        // 1. Are all inputs owned by sender?
-        let publicKey = try Key(from: self.message.sender).exportKey()
-        guard self.message.inputs.filter({ $0.owner == publicKey }).count == self.message.inputs.count else {
-            throw ZKError.inputsNotOwnedBySender
-        }
-        
-        // 2. Are all types of inputs 
-        
-        // 2. Is balance sufficient?
-        // TODO: calculate spendable amount (check predicates)
-        let availableBalance = self.message.inputs.reduce(0, { $0 + $1.balance })
-        let spentAmount = self.message.recipients.reduce(0, { $0 + $1.amount })
+        do {
+            
+            // Fetch input entries
+            let inputs = self.message.inputs.filter({ $0.type == self.message.type })
+            
+            // 1. Are all types of inputs of the correct type?
+            guard inputs.count == self.message.inputs.count else {
+                throw ZKError.multipleEntryTypes
+            }
+            
+            // 2. Is nonce equal to the nonce in the block provided?
+            guard inputs.count == self.message.nonces.count else {
+                throw ZKError.nonceError
+            }
+            for i in 0 ..< inputs.count {
+                guard inputs[i].nonce == self.message.nonces[i] else {
+                    throw ZKError.nonceError
+                }
+            }
+            
+            // Fetch public key
+            let publicKey = try Key(from: self.message.sender)
+            let publicKeyData = try publicKey.exportKey()
+            
+            // 1. Validates that the signature was signed by sender and that the
+            // inputs and outputs are unaltered by comparing the signed hash with
+            // a computed hash value.
+            guard try publicKey.verify(signature: self.signature, digest: self.message.sha256) == true else {
+                throw ZKError.verificationError
+            }
+            
 
-        guard availableBalance >= spentAmount else {
-            throw ZKError.insufficientBalance("Short \(spentAmount - availableBalance) tokens")
+            
+            // 3. Are all inputs owned by sender?
+            guard self.message.inputs.filter({ $0.owner == publicKeyData }).count == self.message.inputs.count else {
+                throw ZKError.inputsNotOwnedBySender
+            }
+            
+            // 4. Is balance sufficient?
+            let availableBalance = self.message.inputs.reduce(0, { $0 + $1.balance })
+            let spentAmount = self.message.recipients.reduce(0, { $0 + $1.amount })
+            guard availableBalance >= spentAmount else {
+                throw ZKError.insufficientBalance("Short \(spentAmount - availableBalance) tokens")
+            }
+            
+            // 5. Are balances unlocked? Check predicates
+            
+            // TODO:
+            
+            // 6.
+            
+            // 3. Are no new coins generated?
+            
+            // 4. Are outputs correct?
+            
+            // 5. Is nonce higher than previous nonce (how to check that?)
+        } catch {
+            result(false, error)
         }
-        
-        // 3. Are no new coins generated?
-        
-        // 4. Are outputs correct?
-        
-        // 5. Is nonce higher than previous nonce (how to check that?)
         
     }
     

@@ -27,6 +27,9 @@ public struct Entry: Codable, Equatable {
     public let spendPredicateArguments: [String: String]?
     
     public let data: Data?
+    
+    /// Counter used for protection against double-application of payments
+    public var nonce: UInt64
 }
 
 extension Entry: Sha256Hashable {
