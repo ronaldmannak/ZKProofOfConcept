@@ -23,6 +23,7 @@
 		C705D4E822AAB7F4003C0EAD /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E622AAB7EC003C0EAD /* Wallet.swift */; };
 		C705D4E922AAB7F7003C0EAD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E422AAB7D7003C0EAD /* Account.swift */; };
 		C705D4EA22AB1F62003C0EAD /* BlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E022AA4260003C0EAD /* BlockTests.swift */; };
+		C705D4ED22B02487003C0EAD /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4EC22B02487003C0EAD /* AccountTests.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		C705D4E222AA426E003C0EAD /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
 		C705D4E422AAB7D7003C0EAD /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		C705D4E622AAB7EC003C0EAD /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		C705D4EC22B02487003C0EAD /* AccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				C7653CAA229C809D00777D13 /* ZKProofOfConceptTests.swift */,
+				C705D4EC22B02487003C0EAD /* AccountTests.swift */,
 				C705D4E022AA4260003C0EAD /* BlockTests.swift */,
 				C705D4E222AA426E003C0EAD /* TransactionTests.swift */,
 				C7653CC7229DEFB800777D13 /* Sha256Tests.swift */,
@@ -379,6 +382,7 @@
 				C7653CAB229C809D00777D13 /* ZKProofOfConceptTests.swift in Sources */,
 				C705D4EA22AB1F62003C0EAD /* BlockTests.swift in Sources */,
 				C705D4E322AA426E003C0EAD /* TransactionTests.swift in Sources */,
+				C705D4ED22B02487003C0EAD /* AccountTests.swift in Sources */,
 				C7653CD6229DF30B00777D13 /* MerkletreeTests.swift in Sources */,
 				C70033F522AA3EDF00811E29 /* ConvenienceFunctions.swift in Sources */,
 			);

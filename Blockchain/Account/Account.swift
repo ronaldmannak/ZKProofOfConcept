@@ -60,6 +60,46 @@ extension Account {
 //    }
 }
 
+// Signs and encrypt
+extension Account {
+    
+    public func sign(_ digest: Data) -> Signature? {
+        
+        do {
+            return try self.key.sign(digest)
+        } catch {
+            return nil
+        }
+    }
+    
+    public func verify(signature: Signature, digest: Data) -> Bool {
+        
+        do {
+            return try self.key.verify(signature: signature, digest: digest)
+        } catch {
+            return false
+        }
+    }
+    
+    public func encrypt(_ data: Data) -> Data? {
+        
+        do {
+            return try self.key.encrypt(data)
+        } catch {
+            return nil
+        }
+    }
+    
+    public func decrypt(_ cipherText: Data) -> Data? {
+        
+        do {
+            return try self.key.decrypt(cipherText)
+        } catch {
+            return nil
+        }
+    }    
+}
+
 // Transactions
 extension Account {
     
