@@ -12,10 +12,8 @@ import XCTest
 
 class BlockTests: XCTestCase {
 
-    var key: Key!
-    var senderAddress: String!
-    
-    var genesis: Block!
+    var accounts: [Account]!
+    var genesisBlock: Block!
     var genesisData: BlockData!
     var validBlock: Block!
 
@@ -24,16 +22,11 @@ class BlockTests: XCTestCase {
         super.setUp()
         
         do {
-            key = try Key(with: UUID())
-            senderAddress = try key.exportKey().hexDescription
-            
             // Create genesis block
-            let genesisBlockandData = try Block.createGenesis()
-            genesis = genesisBlockandData.0
-            genesisData = genesisBlockandData.1
-            
-            // Create valid block
-//            validBlock = try createValidBlock(from: key, previous: genesis)
+            let genesis = try Block.createGenesis()
+            accounts = genesis.0
+            genesisBlock = genesis.1
+            genesisData = genesis.2
             
         } catch {
             XCTFail("Unexpected error: \(error)")
@@ -47,16 +40,18 @@ class BlockTests: XCTestCase {
     
     func testGenesis() {
         
-        XCTAssertNotNil(genesis)
+        XCTAssertNotNil(genesisBlock)
         
         let expectation = XCTestExpectation(description: "Genesis block is valid")
-        genesis.isValid {
+        genesisBlock.isValid {
             XCTAssertTrue($0)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
+    }
+
+    func testCreateTransaction() {
         
-//        XCTAssertTrue(genesis.isValidGenesis)
     }
     
     func testValidBlock() {
@@ -66,6 +61,17 @@ class BlockTests: XCTestCase {
     }
     
     func testAlteredBlock() {
+        
+//        do {
+//            let secondGenesisTest = try Block.createGenesis())
+//            let secondGenesis = secondGenesisTest.0
+//            let secondGenesisData = secondGenesisTest.1
+//            
+//            let invalidGenesis = Block(roots: <#T##Roots#>
+//        } catch {
+//            XCTFail("Unexpected error: \(error)")
+//        }
+        
         // Mining a block with an altered transaction should throw an
         // "EC signature verification failed, no match" error
 //        XCTAssertThrowsError(try createAlteredBlock(from: key, previous: validBlock))

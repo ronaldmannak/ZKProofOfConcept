@@ -69,7 +69,7 @@ public struct Block: Codable, Equatable, Sha256Hashable {
     
     /// Create genesis block
     /// Creates 10 accounts with each 15,000 tokens
-    public static func createGenesis(amount: Amount = 15_000) throws -> (Block, BlockData){
+    public static func createGenesis(amount: Amount = 15_000) throws -> ([Account], Block, BlockData){
         
         // 1. Create 10 accounts and set initial amounts
         var accounts = [Account]()
@@ -99,7 +99,7 @@ public struct Block: Codable, Equatable, Sha256Hashable {
                                   transactionsTree: Merkletree.create(with: [Data().sha256]),
                                   transactions: [TransactionProof]())
         
-        return (block, blockData)
+        return (accounts, block, blockData)
     }
 }
 
