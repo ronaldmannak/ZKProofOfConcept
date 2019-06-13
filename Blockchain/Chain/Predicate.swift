@@ -10,4 +10,20 @@ import Foundation
 
 public struct Predicate: Codable, Equatable {
     
+    let arguments: [String]?
+}
+
+extension Predicate {
+    init() {
+        self.arguments = nil
+    }
+}
+
+extension Predicate {
+    
+    public func run(block: Block, blockData: BlockData, result: (Bool) -> Void) {
+        
+        result(true)
+    }
+    
 }

@@ -19,18 +19,66 @@ public struct Entry {
     
     public let balance: uint64 // balance or amount
     
-//    public let entryType: EntryType
-    
     public let type: ContractAddress
     
-    public let spendPredicate: Predicate // Or address in contract address space
+    ///
+    public let spendPredicate: Predicate? // Or address in contract address space
+    public let spendPredicateArguments: [String]?
     
-    public let spendPredicateArguments: [String: String]?
+    ///
+//    public let receivePredicate: Predicate
+//    public let receivePredicateArguments: [String]?
     
     public let data: Data?
     
     /// Counter used for protection against double-application of payments
     public var nonce: UInt64
+    
+    /// Do we need that?
+    public let previousHash: Sha256Hash?
+}
+
+extension Entry {
+
+    /// <#Description#>
+    ///
+    /// - Parameters:
+    ///   - block: <#block description#>
+    ///   - blockData: <#blockData description#>
+    ///   - entries: <#entries description#>
+    ///   - result: <#result description#>
+    public static func filterSpendable(block: Block, blockData: BlockData, entries: [Entry], result: @escaping ([Entry]) -> Void) {
+        
+        let filterGroup = DispatchGroup()
+        var filtered = [Entry]()
+        
+        for entry in entries {
+            
+            // If no predicate is set, entry can be spent
+            guard let predicate = entry.spendPredicate else {
+                filtered.append(entry)
+                continue
+            }
+            
+            filterGroup.enter()
+            
+            predicate.run(block: block, blockData: blockData) {
+                if $0 == true { filtered.append(entry) }
+            }
+            
+            filterGroup.leave()
+        }
+        
+        filterGroup.wait()
+        
+        DispatchQueue.main.async {
+            result(filtered)
+        }
+    }
+    
+    
+    public static func filterReceivables(block: Block, blockData: BlockData, receivers: [Entry], result: @escaping ([Entry]) -> Void) {
+    }
 }
 
 extension Entry: Sha256Hashable, Codable, Equatable {

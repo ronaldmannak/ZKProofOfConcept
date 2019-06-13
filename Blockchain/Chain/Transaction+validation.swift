@@ -45,13 +45,6 @@ extension Transaction {
     }
 }
 
-// Sha256
-extension Transaction: Sha256Hashable {
-    public var sha256: Sha256Hash {
-        return try! JSONEncoder().encode(self).sha256
-    }
-}
-
 extension Transaction: CustomStringConvertible {
     public var description: String {
         return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(message.sender.suffix(4))" //", \ninputs: \(self.inputs) \noutputs: \(self.recipients)"
@@ -83,15 +76,23 @@ extension Transaction {
                 throw ZKError.multipleEntryTypes
             }
             
+            // Fetch output entries
+            let outputs = self.message.outputs.filter({ $0.type == self.message.type })
+            
+            // 2. Are all types of outputs of the correct type?
+            guard outputs.count == self.message.outputs.count else {
+                throw ZKError.multipleEntryTypes
+            }
+            
             // 2. Is nonce equal to the nonce in the block provided?
-            guard inputs.count == self.message.nonces.count else {
-                throw ZKError.nonceError
-            }
-            for i in 0 ..< inputs.count {
-                guard inputs[i].nonce == self.message.nonces[i] else {
-                    throw ZKError.nonceError
-                }
-            }
+//            guard inputs.count == self.message.nonces.count else {
+//                throw ZKError.nonceError
+//            }
+//            for i in 0 ..< inputs.count {
+//                guard inputs[i].nonce == self.message.nonces[i] else {
+//                    throw ZKError.nonceError
+//                }
+//            }
             
             // Fetch public key
             let publicKey = try Key(from: self.message.sender)

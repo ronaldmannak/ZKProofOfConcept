@@ -24,6 +24,9 @@ public struct Account {
         return address.hexDescription
     }
     
+    /// Queued transactions
+    fileprivate (set) var transactions = [ContractAddress: (Transaction, TransactionProof)]()
+    
     /// Key management
     fileprivate let key:        Key
     
@@ -46,6 +49,39 @@ public struct Account {
     }
 }
 
+
+// Transactions
+extension Account {
+    
+    public func createTx(type: ContractAddress, recipients: [Recipient], block: Block, blockData: BlockData, replaceIfNeeded: Bool = false, result: @escaping (Transaction?, TransactionProof?, Error?) -> Void) {
+        
+        Transaction.create(sender: self, type: type, recipients: recipients, block: block, blockData: blockData) { (tx, error) in
+            
+            guard error == nil else {
+                result(nil, nil, error!)
+                return
+            }
+            
+            
+            // 1.  There can only be one of each type per block. If user tries
+//            guard self.transactions[type] == nil || self.replaceIfNeeded == true else {
+//                throw ZKError.moreThanOneTx
+//                return
+//            }
+            
+            // 2. Add to transactions
+//            self.transactions[type] = ($0)
+        }
+    }
+    
+    public func propagateTx() {
+        
+        // 1. Create proof
+//        TransactionProof.createProof(transaction: transaction, useZK: false) { self.transactions?.append(<#T##newElement: (Transaction, TransactionProof)##(Transaction, TransactionProof)#>)
+//        }
+    }
+}
+
 // Balance
 extension Account {
     
@@ -63,13 +99,9 @@ extension Account {
 // Signs and encrypt
 extension Account {
     
-    public func sign(_ digest: Data) -> Signature? {
+    public func sign(_ digest: Data) throws -> Signature {
         
-        do {
-            return try self.key.sign(digest)
-        } catch {
-            return nil
-        }
+        return try self.key.sign(digest)
     }
     
     public func verify(signature: Signature, digest: Data) -> Bool {

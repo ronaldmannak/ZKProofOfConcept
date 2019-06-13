@@ -10,6 +10,7 @@ import Foundation
 
 public enum ZKError: LocalizedError {
     
+    // Transaction errors
     case inputsNotOwnedBySender
     
     case multipleEntryTypes
@@ -17,8 +18,13 @@ public enum ZKError: LocalizedError {
     case nonceError
     
     case insufficientBalance(String)
-        
+    
+    /// (available, needed)
     case insufficientFunds(UInt64, UInt64)
+    
+    case transactionError
+    
+    case moreThanOneTx
     
     /// TxInput references to an invalid TxOutput
     case invalidReference(Entry)

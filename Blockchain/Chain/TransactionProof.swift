@@ -13,6 +13,8 @@ public struct TransactionProof {
     
     let transaction: Transaction
     
+    let sha256: Sha256Hash!
+    
     // updated entries of both sender and receiver(s)
     public let outputs: [Entry]
     

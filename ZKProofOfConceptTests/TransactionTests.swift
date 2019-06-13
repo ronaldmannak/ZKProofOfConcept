@@ -40,6 +40,8 @@ class TransactionTests: XCTestCase {
     
     func testcreateTransaction() {
         
+        let transaction = Transaction(sender: <#T##AccountAddress#>, type: <#T##ContractAddress#>, recipients: <#T##[Recipient]#>, block: <#T##Block#>, blockData: <#T##BlockData#>, sign: <#T##(Digest) throws -> Signature#>)
+        
 //        let transaction = Transaction(sender: accounts[0], amount: 100, type: Data(), recipients: accounts[1], block: genesisBlock, blockData: genesisData) { (<#Digest#>) -> Signature in
 //            <#code#>
 //        }
