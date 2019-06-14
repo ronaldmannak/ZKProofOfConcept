@@ -11,8 +11,8 @@ import Cocoa
 class ViewController: NSViewController {
     
     var accounts: [Account]!
-    var genesisBlock: Block!
-    var genesisData: BlockData!
+    var block: Block!
+    var blockData: BlockData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +21,13 @@ class ViewController: NSViewController {
             // Create genesis block
             let genesis = try Block.createGenesis()
             accounts = genesis.0
-            genesisBlock = genesis.1
-            genesisData = genesis.2
+            block = genesis.1
+            blockData = genesis.2
         } catch {
             NSAlert(error: error).runModal()
         }
+        
+        updateAccountInfo()
         
     }
 
@@ -44,11 +46,9 @@ class ViewController: NSViewController {
             return
         }
         
-        guard senderIndex != toIndex else { return }
-        
         let sender = self.accounts[senderIndex]
         let recipient = Recipient(amount: amount, to: self.accounts[toIndex].address)
-        sender.createTx(type: Data(), recipients: [recipient], block: self.genesisBlock, blockData: self.genesisData) { (tx, proof, error) in
+        sender.createTx(type: Data(), recipients: [recipient], block: self.block, blockData: self.blockData) { (tx, proof, error) in
             
             guard error == nil else {
                 NSAlert(error: error!).runModal()
@@ -56,13 +56,28 @@ class ViewController: NSViewController {
             }
             print("Tx: \(tx!)")
             
+            self.block.produce(currentBlockData: self.blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil, result: { block, blockData in
+                
+                self.block = block
+                self.blockData = blockData
+                self.updateAccountInfo()
+            })
             
         }
         
-        print("from: \(senderIndex)")
-        print("to: \(toIndex)")
-        print("amount: \(amount)")
+//        print("from: \(senderIndex)")
+//        print("to: \(toIndex)")
+//        print("amount: \(amount)")
         
+    }
+    
+    func updateAccountInfo() {
+        
+        for i in 0 ..< 8 {
+            let balances = self.blockData.balances(for: self.accounts[i].address)
+            
+            (self.view.viewWithTag(i * 10) as! NSTextField).stringValue = "Account \(i+1): \(balances.0)"
+        }
     }
     
 }

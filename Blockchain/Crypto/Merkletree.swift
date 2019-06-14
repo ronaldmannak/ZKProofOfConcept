@@ -22,6 +22,10 @@ public final class Merkletree: Codable {
     
     public static func create(with hashes: [Hash]) -> Merkletree {
         
+        guard hashes.count > 0 else {
+            return Merkletree(hash: Data().sha256, left: nil, right: nil)
+        }
+        
         // Make sure we have an even number of hashes
         let hashes = prepare(hashes) as! [Hash]
         

@@ -75,10 +75,7 @@ extension Transaction {
     ///   - blockData: <#blockData description#>
     ///   - sign: <#sign description#>
     public static func create(sender: Account, type: ContractAddress, recipients: [Recipient], block: Block, blockData: BlockData, result: @escaping (Transaction?, Error?) -> Void)  {
-        
-//        result(nil, nil)
-//        return
-        
+                    
         // 1. Fetch all entries of type type and owned by sender
         let inputs = blockData.balances.filter{ $0.owner == sender.address && $0.type == type }
         
@@ -135,7 +132,7 @@ extension Transaction {
                 }
             }
             
-            outputs.append(contentsOf: spendableInputs)
+//            outputs.append(contentsOf: spendableInputs)
             
             // 5. Create transaction
             let message = Transaction.TransactionMessage(nonces: [UInt64](), inputs: inputs, outputs: outputs + spendableInputs, type: type, recipients: recipients, sender: sender.address)
