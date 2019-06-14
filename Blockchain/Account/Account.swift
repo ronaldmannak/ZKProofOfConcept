@@ -62,6 +62,10 @@ extension Account {
                 return
             }
             
+            // TODO: Generate proof
+            
+            result(tx, nil, nil)
+            
             
             // 1.  There can only be one of each type per block. If user tries
 //            guard self.transactions[type] == nil || self.replaceIfNeeded == true else {

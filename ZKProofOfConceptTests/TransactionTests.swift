@@ -54,7 +54,7 @@ class TransactionTests: XCTestCase {
         accounts[0].createTx(type: Data(), recipients: [recipient], block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
             
             XCTAssertNotNil(tx)
-            XCTAssertNotNil(proof)
+            XCTAssertNil(proof)
             XCTAssertNil(error)
             
             expectation.fulfill()
