@@ -15,7 +15,6 @@ class TransactionTests: XCTestCase {
     var accounts: [Account]!
     var genesisBlock: Block!
     var genesisData: BlockData!
-    var validBlock: Block!
     
     override func setUp() {
         
@@ -38,16 +37,49 @@ class TransactionTests: XCTestCase {
         super.tearDown()
     }
     
-    func testcreateTransaction() {
+    func testSanity() {
         
-        let transaction = Transaction(sender: <#T##AccountAddress#>, type: <#T##ContractAddress#>, recipients: <#T##[Recipient]#>, block: <#T##Block#>, blockData: <#T##BlockData#>, sign: <#T##(Digest) throws -> Signature#>)
-        
-//        let transaction = Transaction(sender: accounts[0], amount: 100, type: Data(), recipients: accounts[1], block: genesisBlock, blockData: genesisData) { (<#Digest#>) -> Signature in
-//            <#code#>
-//        }
-        // send Account instead of AccountAddress?
-        // why have bock sign the code?
-        
+        XCTAssertNotNil(accounts)
+        XCTAssertNotNil(genesisData)
+        XCTAssertNotNil(genesisBlock)
+        XCTAssert(accounts.count == 10)
     }
+    
+    func testCreateTransaction() {
+        
+        let expectation = XCTestExpectation(description: "Create transaction")
+        
+        let recipient = Recipient(amount: 200, to: accounts[1].address)
+        
+        accounts[0].createTx(type: Data(), recipients: [recipient], block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
+            
+            XCTAssertNotNil(tx)
+            XCTAssertNotNil(proof)
+            XCTAssertNil(error)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2.0)
+    }
+    /*
+    func testCreateMultipleTransactions() {
+        
+        let expectation = XCTestExpectation(description: "Create transaction")
+        
+        let recipient1 = Recipient(amount: 200, to: accounts[1].address)
+        let recipient2 = Recipient(amount: 1000, to: accounts[2].address)
+        
+        accounts[0].createTx(type: Data(), recipients: [recipient1, recipient2], block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
+            
+            XCTAssertNotNil(tx)
+            XCTAssertNotNil(proof)
+            XCTAssertNil(error)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+    }*/
     
 }

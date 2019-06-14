@@ -35,7 +35,7 @@ class AccountTests: XCTestCase {
         let data1 = "Message".data(using: .utf8)!
         let data2 = "Invalid".data(using: .utf8)!
     
-        let signature = account1.sign(data1)!
+        let signature = try! account1.sign(data1)
         
         XCTAssertTrue(account1.verify(signature: signature, digest: data1))
         XCTAssertFalse(account1.verify(signature: signature, digest: data2))

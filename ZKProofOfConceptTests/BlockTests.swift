@@ -15,7 +15,6 @@ class BlockTests: XCTestCase {
     var accounts: [Account]!
     var genesisBlock: Block!
     var genesisData: BlockData!
-    var validBlock: Block!
 
     override func setUp() {
         
@@ -38,6 +37,14 @@ class BlockTests: XCTestCase {
         super.tearDown()
     }
     
+    func testSanity() {
+        
+        XCTAssertNotNil(accounts)
+        XCTAssertNotNil(genesisData)
+        XCTAssertNotNil(genesisBlock)
+        XCTAssert(accounts.count == 10)
+    }
+    
     func testGenesis() {
         
         XCTAssertNotNil(genesisBlock)
@@ -50,14 +57,19 @@ class BlockTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
-    func testCreateTransaction() {
+    func testAccounts() {
         
-    }
-    
-    func testValidBlock() {
-//        XCTAssertNotNil(validBlock)
-//        XCTAssertTrue(validBlock.isValid)
-//        XCTAssertFalse(validBlock.isValidGenesis)
+        let balance0 = genesisData.balances(for: accounts[0].address)
+        let balance1 = genesisData.balances(for: accounts[1].address)
+        
+        XCTAssertNotNil(balance0.1)
+        XCTAssertNotNil(balance1.1)
+        
+        XCTAssert(balance0.1!.count == 1)
+        XCTAssert(balance1.1!.count == 1)
+        
+        XCTAssert(balance0.0 == 15_000)
+        XCTAssert(balance1.0 == 15_000)        
     }
     
     func testAlteredBlock() {

@@ -49,30 +49,32 @@ extension Entry {
     ///   - result: <#result description#>
     public static func filterSpendable(block: Block, blockData: BlockData, entries: [Entry], result: @escaping ([Entry]) -> Void) {
         
-        let filterGroup = DispatchGroup()
-        var filtered = [Entry]()
-        
-        for entry in entries {
+        DispatchQueue.global().async {
+            let filterGroup = DispatchGroup()
+            var filtered = [Entry]()
             
-            // If no predicate is set, entry can be spent
-            guard let predicate = entry.spendPredicate else {
-                filtered.append(entry)
-                continue
+            for entry in entries {
+                
+                // If no predicate is set, entry can be spent
+                guard let predicate = entry.spendPredicate else {
+                    filtered.append(entry)
+                    continue
+                }
+                
+                filterGroup.enter()
+                
+                predicate.run(block: block, blockData: blockData) {
+                    if $0 == true { filtered.append(entry) }
+                }
+                
+                filterGroup.leave()
             }
             
-            filterGroup.enter()
+            filterGroup.wait()
             
-            predicate.run(block: block, blockData: blockData) {
-                if $0 == true { filtered.append(entry) }
+            DispatchQueue.main.async {
+                result(filtered)
             }
-            
-            filterGroup.leave()
-        }
-        
-        filterGroup.wait()
-        
-        DispatchQueue.main.async {
-            result(filtered)
         }
     }
     

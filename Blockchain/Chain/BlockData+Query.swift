@@ -25,3 +25,24 @@ extension BlockData {
     }
     
 }
+
+// Query balances
+extension BlockData {
+    
+    func entries(for address: AccountAddress) -> [Entry]? {
+        
+        return self.balances.filter { $0.owner == address }
+    }
+    
+    func balances(for address: AccountAddress) -> (UInt64, [Entry]?) {
+        
+        guard let entries = self.entries(for: address)?.filter({ $0.owner == address }) else {
+            return (0, nil)
+        }
+        
+        let balance = entries.reduce(0) { $0 + $1.balance }
+        
+        return (balance, entries)
+    }
+    
+}
