@@ -42,6 +42,8 @@ extension BlockData {
         
         let balance = entries.reduce(0) { $0 + $1.balance }
         
+        // TODO: What about spent entries?
+        
         return (balance, entries)
     }
     
