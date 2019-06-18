@@ -78,6 +78,8 @@ class ViewController: NSViewController {
             
             (self.view.viewWithTag(i * 10) as! NSTextField).stringValue = "Account \(i+1): \(balances.0)"
         }
+        
+        self.view.window?.title = "\(self.block.roots.height)"
     }
     
 }
