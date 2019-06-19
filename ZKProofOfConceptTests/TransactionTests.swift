@@ -59,8 +59,6 @@ class TransactionTests: XCTestCase {
             
             let inputs = tx!.message.inputs
             let outputs = tx!.message.outputs
-            print("*****")
-            print(outputs)
             
             expectation.fulfill()
         }
@@ -159,6 +157,10 @@ class TransactionTests: XCTestCase {
             
             self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
                 
+                XCTAssert(block.roots.height == 1)
+                XCTAssert(blockData.isValid)
+                XCTAssert(block.quickValidate(blockData: blockData))
+                
                 let expectedBalances: [uint64] = [15_000 - 200 - 1_000, 15_000 + 200, 15_000 + 1000, 15_000, 15_000, 15_000, 15_000, 15_000, 15_000, 15_000]
                 XCTAssert(expectedBalances.count == 10)
                 
@@ -203,6 +205,10 @@ class TransactionTests: XCTestCase {
             
             self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
                 
+                XCTAssert(block.roots.height == 1)
+                XCTAssert(blockData.isValid)
+                XCTAssert(block.quickValidate(blockData: blockData))
+                
                 let expectedBalances: [uint64] = [15_000, 15_000 + 1_000, 15_000 - 1_000 - 1_200 - 54, 15_000, 15_000, 15_000, 15_000, 15_000, 15_000 + 54, 15_000 + 1_200 ]
                 XCTAssert(expectedBalances.count == 10)
                 
@@ -225,7 +231,10 @@ class TransactionTests: XCTestCase {
                     XCTAssertNil(proof)
                     XCTAssertNil(error)
                     
-                    self.genesisBlock.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+                    block.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+                        
+                        XCTAssert(blockData.isValid)
+                        XCTAssert(block.quickValidate(blockData: blockData))
                         
                         let expectedBalances: [uint64] = [15_000, 16_000 + 5_000, 12_746, 15_000, 15_000, 15_000, 15_000, 15_000 + 7_000, 15_054 + 864, 16_200 - 7_000 - 5_000 - 864]
                         XCTAssert(expectedBalances.count == 10)
@@ -242,6 +251,10 @@ class TransactionTests: XCTestCase {
                         let sender2Entries = blockData.balances(for: sender2.address).1
                         XCTAssert(sender2Entries?.count == 2, "found \(sender2Entries!.count) entries")
 
+                        print("*******")
+                        for entry in sender2Entries! {
+                            print(entry)
+                        }
                         
 //                        let recipient1Entries = blockData.balances(for: recipient1.to).1
 //                        XCTAssert(recipient1Entries?.count == 2)
@@ -276,6 +289,10 @@ class TransactionTests: XCTestCase {
             
             self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
                 
+                XCTAssert(block.roots.height == 1)
+                XCTAssert(blockData.isValid)
+                XCTAssert(block.quickValidate(blockData: blockData))
+                
                 let expectedBalances: [uint64] = [15_000, 15_000 + 1_000, 15_000 - 1_000 - 1_200 - 54, 15_000, 15_000, 15_000, 15_000, 15_000, 15_000 + 54, 15_000 + 1_200 ]
                 XCTAssert(expectedBalances.count == 10)
                 
@@ -285,7 +302,11 @@ class TransactionTests: XCTestCase {
                     XCTAssert(actualBalance == expectedBalances[i], "balance \(i): Found \(actualBalance), expected \(expectedBalances[i])")
                 }
                 
-                self.genesisBlock.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+                block.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+                    
+                    XCTAssert(block.roots.height == 2)
+                    XCTAssert(blockData.isValid)
+                    XCTAssert(block.quickValidate(blockData: blockData))
                     
                     // Balances should be the same as before
                     let expectedBalances: [uint64] = [15_000, 15_000 + 1_000, 15_000 - 1_000 - 1_200 - 54, 15_000, 15_000, 15_000, 15_000, 15_000, 15_000 + 54, 15_000 + 1_200 ]
