@@ -29,6 +29,8 @@ public enum ZKError: LocalizedError {
     /// TxInput references to an invalid TxOutput
     case invalidReference(Entry)
     
+    case invalidBlock
+    
     // Key
     
     /// The provided private key label is invalid

@@ -28,16 +28,9 @@ extension Block {
         }
         
         // 4. Create new block data
-        let newBlockData = BlockData(balancesTree: Merkletree.create(with: filteredEntries.map { $0.sha256 }),
-                                     balances: filteredEntries,
-                                     contractsTree: Merkletree.create(with: currentBlockData.contracts.map { $0.sha256}),
-                                     contracts: currentBlockData.contracts,
-                                     metadataTree: Merkletree.create(with: currentBlockData.metadata.map { $0.sha256 }),
-                                     metadata: currentBlockData.metadata,
-                                     transactionsTree: Merkletree.create(with: (transactions ?? [Transaction]()).map { $0.sha256 }),
-                                     transactions: proofs ?? [TransactionProof]())        
+        let newBlockData = BlockData(balances: filteredEntries, contracts: currentBlockData.contracts, metadata: currentBlockData.metadata, transactions: proofs ?? [TransactionProof]())
         
-        let roots = Roots(previous: self, balancesRoot: newBlockData.balancesTree.hash, contractsRoot: newBlockData.contractsTree.hash, transactionsRoot: newBlockData.transactionsTree?.hash ?? Data().sha256, metadataRoot: newBlockData.metadataTree.hash)
+        let roots = Roots(previous: self, balancesRoot: newBlockData.balancesTree.hash, contractsRoot: newBlockData.contractsTree.hash, metadataRoot: newBlockData.metadataTree.hash, transactionsRoot: newBlockData.transactionsTree?.hash)
         
         let newBlock = Block(roots: roots)
         

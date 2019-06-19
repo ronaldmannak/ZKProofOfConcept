@@ -26,18 +26,6 @@ public struct BlockData: Codable, Equatable {
 
     public let transactions: [TransactionProof]?
     
-    public var isValid: Bool {
-        
-        // 1. Confirm that hash of every entry, contract, and metadata is in the leaves
-        
-        // 2. Check if merkle trees are valid
-        
-        return false
-    }
-}
-
-extension BlockData {
-    
     public init(balances: [Entry], contracts: [Contract], metadata: [ContractMetadata], transactions: [TransactionProof]) {
         
         self.balances = balances

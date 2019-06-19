@@ -22,9 +22,9 @@ public struct Roots: Codable, Equatable, Sha256Hashable {
     // Merkle roots
     public let balancesRoot: Sha256Hash
     
-    public let contractsRoot: Sha256Hash?
+    public let contractsRoot: Sha256Hash
     
-    public let metadataRoot: Sha256Hash?
+    public let metadataRoot: Sha256Hash
     
     public let transactionsRoot: Sha256Hash?
     
@@ -36,7 +36,7 @@ public struct Roots: Codable, Equatable, Sha256Hashable {
         return try! JSONEncoder().encode(self).sha256
     }
     
-    init(previous: Block?, balancesRoot: Sha256Hash, contractsRoot: Sha256Hash, transactionsRoot: Sha256Hash, metadataRoot: Sha256Hash) {
+    init(previous: Block?, balancesRoot: Sha256Hash, contractsRoot: Sha256Hash, metadataRoot: Sha256Hash, transactionsRoot: Sha256Hash?) {
         
         self.previousBlockHash = previous?.sha256
         self.height = previous?.roots.height == nil ? 0 : previous!.roots.height + 1
@@ -83,30 +83,24 @@ public struct Block: Codable, Equatable, Sha256Hashable {
             balances.append(entry)
         }
         
-        // 2. Create roots
-        let roots = Roots(previous: nil, balancesRoot: balances.sha256, contractsRoot: Data(), transactionsRoot: Data(), metadataRoot: Data())
+        // 2. init block data
+        let blockData = BlockData(balances: balances, contracts: [Contract](), metadata: [ContractMetadata](), transactions: [TransactionProof]())
+        
+        // 3. Create roots
+        let roots = Roots(previous: nil, balancesRoot: blockData.balancesTree.hash, contractsRoot: blockData.contractsTree.hash, metadataRoot: blockData.metadataTree.hash, transactionsRoot: blockData.transactionsTree?.hash)
         
         // 3. init block
         let block = Block(roots: roots)
         
-        // 4. init block data
-        let blockData = BlockData(balancesTree: Merkletree.create(with: balances.map { $0.sha256 }),
-                                  balances: balances,
-                                  contractsTree: Merkletree.create(with: [Data().sha256]),
-                                  contracts: [Contract](),
-                                  metadataTree: Merkletree.create(with: [Data().sha256]),
-                                  metadata: [ContractMetadata](),
-                                  transactionsTree: Merkletree.create(with: [Data().sha256]),
-                                  transactions: [TransactionProof]())
         
         return (accounts, block, blockData)
     }
 }
 
-extension Block {
-    
-    public static func createBlock(previous: Block? = nil, balances: Merkletree, contracts: Merkletree, metadata: Merkletree, result: (Block, BlockData) -> Void) {
-        
-    }
-    
-}
+//extension Block {
+//
+//    public static func createBlock(previous: Block? = nil, balances: Merkletree, contracts: Merkletree, metadata: Merkletree, result: (Block, BlockData) -> Void) {
+//
+//    }
+//
+//}

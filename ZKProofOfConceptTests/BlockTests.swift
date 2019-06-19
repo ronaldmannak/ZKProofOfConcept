@@ -43,6 +43,7 @@ class BlockTests: XCTestCase {
         XCTAssertNotNil(genesisData)
         XCTAssertNotNil(genesisBlock)
         XCTAssert(accounts.count == 10)
+        XCTAssert(genesisBlock.quickValidate(blockData: genesisData))
     }
     
     func testGenesis() {

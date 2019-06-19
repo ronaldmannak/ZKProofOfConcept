@@ -147,10 +147,11 @@ class TransactionTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Send transactions 0")
         
+        let sender = accounts[0]
         let recipient1 = Recipient(amount: 200, to: accounts[1].address)
         let recipient2 = Recipient(amount: 1000, to: accounts[2].address)
         
-        accounts[0].createTx(type: Data(), recipients: [recipient1, recipient2], block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
+        sender.createTx(type: Data(), recipients: [recipient1, recipient2], block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
             
             XCTAssertNotNil(tx)
             XCTAssertNil(proof)
@@ -167,6 +168,15 @@ class TransactionTests: XCTestCase {
                     XCTAssert(actualBalance == expectedBalances[i], "balance \(i): Found \(actualBalance), expected \(expectedBalances[i])")
                 }
                 
+                let senderEntries = blockData.balances(for: sender.address).1
+                XCTAssert(senderEntries?.count == 1)
+                
+                let recipient1Entries = blockData.balances(for: recipient1.to).1
+                XCTAssert(recipient1Entries?.count == 2)
+
+                let recipient2Entries = blockData.balances(for: recipient2.to).1
+                XCTAssert(recipient2Entries?.count == 2)
+                
                 expectation.fulfill()
             }
         }
@@ -178,13 +188,14 @@ class TransactionTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Send transactions 1")
         
+        let sender1 = accounts[2]
         let recipients = [
             Recipient(amount: 1200, to: accounts[9].address),
             Recipient(amount: 1000, to: accounts[1].address),
             Recipient(amount: 54, to: accounts[8].address),
         ]
         
-        accounts[2].createTx(type: Data(), recipients: recipients, block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
+        sender1.createTx(type: Data(), recipients: recipients, block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
             
             XCTAssertNotNil(tx)
             XCTAssertNil(proof)
@@ -202,12 +213,13 @@ class TransactionTests: XCTestCase {
                 }
                 
                 let newRecipients = [
-                    Recipient(amount: 7_000, to: self.accounts[9].address),
+                    Recipient(amount: 7_000, to: self.accounts[7].address),
                     Recipient(amount: 5_000, to: self.accounts[1].address),
                     Recipient(amount: 864, to: self.accounts[8].address),
                 ]
                 
-                self.accounts[4].createTx(type: Data(), recipients: newRecipients, block: block, blockData: blockData, replaceIfNeeded: false) { (tx, proof, error) in
+                let sender2 = self.accounts[9]
+                sender2.createTx(type: Data(), recipients: newRecipients, block: block, blockData: blockData, replaceIfNeeded: false) { (tx, proof, error) in
                     
                     XCTAssertNotNil(tx)
                     XCTAssertNil(proof)
@@ -215,7 +227,7 @@ class TransactionTests: XCTestCase {
                     
                     self.genesisBlock.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
                         
-                        let expectedBalances: [uint64] = [15_000, 16_000 + 5_000, 12_746, 15_000, 15_000 - 7_000 - 5_000 - 864, 15_000, 15_000, 15_000, 15_054 + 864, 16_200 + 7_000]
+                        let expectedBalances: [uint64] = [15_000, 16_000 + 5_000, 12_746, 15_000, 15_000, 15_000, 15_000, 15_000 + 7_000, 15_054 + 864, 16_200 - 7_000 - 5_000 - 864]
                         XCTAssert(expectedBalances.count == 10)
                         
                         for i in 0 ..< 10 {
@@ -223,6 +235,19 @@ class TransactionTests: XCTestCase {
                             let actualBalance = blockData.balances(for: self.accounts[i].address).0
                             XCTAssert(actualBalance == expectedBalances[i], "balance \(i): Found \(actualBalance), expected \(expectedBalances[i])")
                         }
+                        
+                        let sender1Entries = blockData.balances(for: sender1.address).1
+                        XCTAssert(sender1Entries?.count == 1)
+
+                        let sender2Entries = blockData.balances(for: sender2.address).1
+                        XCTAssert(sender2Entries?.count == 2, "found \(sender2Entries!.count) entries")
+
+                        
+//                        let recipient1Entries = blockData.balances(for: recipient1.to).1
+//                        XCTAssert(recipient1Entries?.count == 2)
+//
+//                        let recipient2Entries = blockData.balances(for: recipient2.to).1
+//                        XCTAssert(recipient2Entries?.count == 2
                 
                         expectation.fulfill()
                     }
@@ -332,5 +357,14 @@ class TransactionTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: 2.0)
+    }
+    
+    func testConsolidateOutputs() {
+        
+    }
+    
+    // Pass blockdata that is not the correct data for block
+    func testDetachedBlockData() {
+        
     }
 }

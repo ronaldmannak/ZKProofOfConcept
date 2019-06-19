@@ -75,14 +75,20 @@ extension Transaction {
     ///   - blockData: <#blockData description#>
     ///   - sign: <#sign description#>
     public static func create(sender: Account, type: ContractAddress, recipients: [Recipient], block: Block, blockData: BlockData, result: @escaping (Transaction?, Error?) -> Void)  {
-                    
-        // 1. Fetch all entries of type type and owned by sender
+        
+        // 1. Sanity check. Validate block and blockData
+        guard block.quickValidate(blockData: blockData) else {
+            result(nil, ZKError.invalidBlock)
+            return
+        }
+        
+        // 2. Fetch all entries of type type and owned by sender
         let inputs = blockData.balances.filter{ $0.owner == sender.address && $0.type == type }
         
-        // 2. Run predicate on each entry and filter out the ones that returned false
+        // 3. Run predicate on each entry and filter out the ones that returned false
         Entry.filterSpendable(block: block, blockData: blockData, entries: inputs) { spendableInputs in
             
-            // 3. Does sender have enough tokens?
+            // 4. Does sender have enough tokens?
             let needed = recipients.reduce(UInt64(0), { $0 + $1.amount })
             let available = spendableInputs.reduce(UInt64(0), { $0 + $1.balance })
             guard available >= needed else {
@@ -94,7 +100,7 @@ extension Transaction {
                 return
             }
             
-            // 4. Use entries to pay recipients
+            // 5. Use entries to pay recipients
             var outputs = [Entry]()
             var spendableInputs = spendableInputs
             
@@ -134,7 +140,7 @@ extension Transaction {
             
 //            outputs.append(contentsOf: spendableInputs)
             
-            // 5. Create transaction
+            // 6. Create transaction
             let message = Transaction.TransactionMessage(nonces: [UInt64](), inputs: inputs, outputs: outputs + spendableInputs, type: type, recipients: recipients, sender: sender.address)
             do {
                 let tx = try Transaction(message: message, sender: sender, inputs: inputs, outputs: outputs)

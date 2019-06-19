@@ -22,7 +22,7 @@ extension Block {
         result(true)
     }
     
-    public func validateBlockData(_ blockData: BlockData, result: (Bool) -> Void) {
+    public func validate(blockData: BlockData, result: (Bool) -> Void) {
         
         self.isValid { validHashAndProof in
             
@@ -46,5 +46,28 @@ extension Block {
             
             result(true)
         }
+    }
+    
+    public func quickValidate(blockData: BlockData) -> Bool {
+        
+        guard self.quickValidate() else { return false }
+        
+        guard blockData.isValid else { return false }
+        
+        guard self.roots.balancesRoot == blockData.balancesTree.hash &&
+            self.roots.contractsRoot == blockData.contractsTree.hash &&
+            self.roots.metadataRoot == blockData.metadataTree.hash &&
+            self.roots.transactionsRoot == blockData.transactionsTree?.hash
+            else {
+                
+                return false
+        }
+        
+        return true
+    }
+    
+    public func quickValidate() -> Bool {
+        
+        return self.sha256 == self.roots.sha256
     }
 }

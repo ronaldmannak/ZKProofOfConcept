@@ -25,6 +25,7 @@
 		C705D4EA22AB1F62003C0EAD /* BlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4E022AA4260003C0EAD /* BlockTests.swift */; };
 		C705D4ED22B02487003C0EAD /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4EC22B02487003C0EAD /* AccountTests.swift */; };
 		C71FD50422B3F7FC00163BBC /* Block+Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50322B3F7FC00163BBC /* Block+Producer.swift */; };
+		C71FD50622B9BB3C00163BBC /* BlockData+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50522B9BB3C00163BBC /* BlockData+Validation.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		C705D4E622AAB7EC003C0EAD /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		C705D4EC22B02487003C0EAD /* AccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		C71FD50322B3F7FC00163BBC /* Block+Producer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+Producer.swift"; sourceTree = "<group>"; };
+		C71FD50522B9BB3C00163BBC /* BlockData+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockData+Validation.swift"; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				C71FD50322B3F7FC00163BBC /* Block+Producer.swift */,
 				C70033DF22A8E3B000811E29 /* BlockData.swift */,
 				C70033F022A9EBAB00811E29 /* BlockData+Query.swift */,
+				C71FD50522B9BB3C00163BBC /* BlockData+Validation.swift */,
 				C7653CD8229F2A2900777D13 /* Entry.swift */,
 				C70033EA22A9CF9B00811E29 /* Recipient.swift */,
 				C7653CDB229F2A3B00777D13 /* Transaction.swift */,
@@ -371,6 +374,7 @@
 				C7653CBA229C8D6000777D13 /* SHA256.swift in Sources */,
 				C7653CBF229CA10E00777D13 /* Typealias.swift in Sources */,
 				C70033E922A9BDA100811E29 /* Transaction+validation.swift in Sources */,
+				C71FD50622B9BB3C00163BBC /* BlockData+Validation.swift in Sources */,
 				C70033F122A9EBAB00811E29 /* BlockData+Query.swift in Sources */,
 				C7653CC4229CB86900777D13 /* Pedersen.swift in Sources */,
 				C7653CD0229DF0C800777D13 /* Data.swift in Sources */,
