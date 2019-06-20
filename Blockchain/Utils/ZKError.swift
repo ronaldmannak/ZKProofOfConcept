@@ -31,6 +31,8 @@ public enum ZKError: LocalizedError {
     
     case invalidBlock
     
+    case invalidBlockData
+    
     // Key
     
     /// The provided private key label is invalid

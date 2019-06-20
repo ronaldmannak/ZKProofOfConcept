@@ -155,7 +155,16 @@ class TransactionTests: XCTestCase {
             XCTAssertNil(proof)
             XCTAssertNil(error)
             
-            self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+            self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil) { block, blockData, error in
+                
+                XCTAssert(error == nil, "Error: \(error!)")
+                XCTAssertNotNil(block)
+                XCTAssertNotNil(blockData)
+                
+                guard let block = block, let blockData = blockData else {
+                    XCTFail()
+                    return
+                }
                 
                 XCTAssert(block.roots.height == 1)
                 XCTAssert(blockData.isValid)
@@ -203,7 +212,16 @@ class TransactionTests: XCTestCase {
             XCTAssertNil(proof)
             XCTAssertNil(error)
             
-            self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+            self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil) { block, blockData, error in
+                
+                XCTAssert(error == nil, "Error: \(error!)")
+                XCTAssertNotNil(block)
+                XCTAssertNotNil(blockData)
+                
+                guard let block = block, let blockData = blockData else {
+                    XCTFail()
+                    return
+                }
                 
                 XCTAssert(block.roots.height == 1)
                 XCTAssert(blockData.isValid)
@@ -231,7 +249,16 @@ class TransactionTests: XCTestCase {
                     XCTAssertNil(proof)
                     XCTAssertNil(error)
                     
-                    block.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+                    block.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil) { block, blockData, error in
+                        
+                        XCTAssert(error == nil, "Error: \(error!)")
+                        XCTAssertNotNil(block)
+                        XCTAssertNotNil(blockData)
+                        
+                        guard let block = block, let blockData = blockData else {
+                            XCTFail()
+                            return
+                        }
                         
                         XCTAssert(blockData.isValid)
                         XCTAssert(block.quickValidate(blockData: blockData))
@@ -287,7 +314,16 @@ class TransactionTests: XCTestCase {
             XCTAssertNil(proof)
             XCTAssertNil(error)
             
-            self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+            self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil) { block, blockData, error in
+                
+                XCTAssert(error == nil, "Error: \(error!)")
+                XCTAssertNotNil(block)
+                XCTAssertNotNil(blockData)
+                
+                guard let block = block, let blockData = blockData else {
+                    XCTFail()
+                    return
+                }
                 
                 XCTAssert(block.roots.height == 1)
                 XCTAssert(blockData.isValid)
@@ -302,7 +338,16 @@ class TransactionTests: XCTestCase {
                     XCTAssert(actualBalance == expectedBalances[i], "balance \(i): Found \(actualBalance), expected \(expectedBalances[i])")
                 }
                 
-                block.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil) { block, blockData in
+                block.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil) { block, blockData, error in
+                    
+                    XCTAssert(error == nil, "Error: \(error!)")
+                    XCTAssertNotNil(block)
+                    XCTAssertNotNil(blockData)
+                    
+                    guard let block = block, let blockData = blockData else {
+                        XCTFail()
+                        return
+                    }
                     
                     XCTAssert(block.roots.height == 2)
                     XCTAssert(blockData.isValid)

@@ -56,7 +56,12 @@ class ViewController: NSViewController {
             }
             print("Tx: \(tx!)")
             
-            self.block.produce(currentBlockData: self.blockData, transactions: [tx!], proofs: [TransactionProof](), newEntries: tx!.message.outputs, newContracts: nil, newMetadata: nil, result: { block, blockData in
+            self.block.produce(currentBlockData: self.blockData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil, result: { block, blockData, error in
+                
+                guard error == nil else {
+                    NSAlert(error: error!).runModal()
+                    return
+                }
                 
                 self.block = block
                 self.blockData = blockData

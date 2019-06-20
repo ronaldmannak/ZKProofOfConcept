@@ -182,6 +182,11 @@ struct Key {
         self.privateKey = nil
     }
     
+    
+    /// Initiates Key instance from exported public key
+    ///
+    /// - Parameter string: <#string description#>
+    /// - Throws: <#throws value description#>
     init(from string: String) throws {
         guard let data = Data(hex: string) else {
             throw ZKError.invalidPublicKeyString(string)

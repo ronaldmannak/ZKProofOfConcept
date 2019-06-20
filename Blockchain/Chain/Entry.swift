@@ -92,6 +92,6 @@ extension Entry: Sha256Hashable, Codable, Equatable {
 
 extension Entry: CustomStringConvertible {
     public var description: String {
-        return "owner: ..." + owner.hexDescription.suffix(4) + ", balance: \(balance), nonce: \(nonce), hash: \(sha256.hexDescription), previous: \(previousHash?.hexDescription ?? "")"
+        return "owner: ..." + owner.hexDescription.suffix(4) + ", balance: \(balance), nonce: \(nonce), hash: \(sha256.hexDescription), previous: \(previousHash?.hexDescription ?? "")\n"
     }
 }

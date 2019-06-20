@@ -37,17 +37,31 @@ extension Transaction {
      Checks if the transaction is a genesis transaction.
      - returns:     true if the transaction is a genesis transaction
      */
-    public var isGenesisTransaction: Bool {
-        return false
+//    public var isGenesisTransaction: Bool {
+//        return false
 //        guard inputs.count == 0, outputs.count == 1 else { return false }
 //        guard sender == Data(), signature == Data() else { return false }
-        return true
-    }
+//        return true
+//    }
 }
 
 extension Transaction: CustomStringConvertible {
     public var description: String {
         return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(message.sender.suffix(4))" //", \ninputs: \(self.inputs) \noutputs: \(self.recipients)"
+    }
+}
+
+extension Transaction {
+    
+    public var isSignatureValid: Bool {
+        
+        guard id == message.sha256 else { return false }
+        
+        guard let address = self.message.inputs.first?.owner, let key = try? Key(from: address) else { return false }
+        
+        guard let _ = try? key.verify(signature: self.signature, digest: self.id) else { return false }
+        
+        return true
     }
 }
 
@@ -125,5 +139,4 @@ extension Transaction {
         }
         
     }
-    
 }
