@@ -26,6 +26,9 @@
 		C705D4ED22B02487003C0EAD /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C705D4EC22B02487003C0EAD /* AccountTests.swift */; };
 		C71FD50422B3F7FC00163BBC /* Block+Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50322B3F7FC00163BBC /* Block+Producer.swift */; };
 		C71FD50622B9BB3C00163BBC /* BlockData+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50522B9BB3C00163BBC /* BlockData+Validation.swift */; };
+		C71FD50922BBF41B00163BBC /* Wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C71FD50822BBF41B00163BBC /* Wallet.storyboard */; };
+		C71FD50B22BBF42C00163BBC /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50A22BBF42C00163BBC /* WalletViewController.swift */; };
+		C71FD50D22BBFE6C00163BBC /* BlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50C22BBFE6C00163BBC /* BlockController.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -74,6 +77,9 @@
 		C705D4EC22B02487003C0EAD /* AccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		C71FD50322B3F7FC00163BBC /* Block+Producer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+Producer.swift"; sourceTree = "<group>"; };
 		C71FD50522B9BB3C00163BBC /* BlockData+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockData+Validation.swift"; sourceTree = "<group>"; };
+		C71FD50822BBF41B00163BBC /* Wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Wallet.storyboard; sourceTree = "<group>"; };
+		C71FD50A22BBF42C00163BBC /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
+		C71FD50C22BBFE6C00163BBC /* BlockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockController.swift; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -138,10 +144,22 @@
 			path = Consensus;
 			sourceTree = "<group>";
 		};
+		C71FD50722BBF3FA00163BBC /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C7653C9D229C809C00777D13 /* Main.storyboard */,
+				C7653C99229C809900777D13 /* ViewController.swift */,
+				C71FD50822BBF41B00163BBC /* Wallet.storyboard */,
+				C71FD50A22BBF42C00163BBC /* WalletViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		C7653C8B229C809900777D13 = {
 			isa = PBXGroup;
 			children = (
 				C7653CB5229C8CE000777D13 /* Blockchain */,
+				C71FD50722BBF3FA00163BBC /* UI */,
 				C7653C96229C809900777D13 /* ZKProofOfConcept */,
 				C7653CA9229C809D00777D13 /* ZKProofOfConceptTests */,
 				C7653C95229C809900777D13 /* Products */,
@@ -161,9 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				C7653C97229C809900777D13 /* AppDelegate.swift */,
-				C7653C99229C809900777D13 /* ViewController.swift */,
 				C7653C9B229C809C00777D13 /* Assets.xcassets */,
-				C7653C9D229C809C00777D13 /* Main.storyboard */,
 				C7653CA0229C809C00777D13 /* Info.plist */,
 				C7653CA1229C809C00777D13 /* ZKProofOfConcept.entitlements */,
 			);
@@ -194,6 +210,7 @@
 				C7653CD7229F2A1700777D13 /* Chain */,
 				C7653CBD229CA0F700777D13 /* Utils */,
 				C7653CB8229C8D4F00777D13 /* Crypto */,
+				C71FD50C22BBFE6C00163BBC /* BlockController.swift */,
 			);
 			path = Blockchain;
 			sourceTree = "<group>";
@@ -333,6 +350,7 @@
 			files = (
 				C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */,
 				C7653C9F229C809C00777D13 /* Main.storyboard in Resources */,
+				C71FD50922BBF41B00163BBC /* Wallet.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +391,8 @@
 				C7653CDA229F2A2B00777D13 /* Entry.swift in Sources */,
 				C7653CBA229C8D6000777D13 /* SHA256.swift in Sources */,
 				C7653CBF229CA10E00777D13 /* Typealias.swift in Sources */,
+				C71FD50D22BBFE6C00163BBC /* BlockController.swift in Sources */,
+				C71FD50B22BBF42C00163BBC /* WalletViewController.swift in Sources */,
 				C70033E922A9BDA100811E29 /* Transaction+validation.swift in Sources */,
 				C71FD50622B9BB3C00163BBC /* BlockData+Validation.swift in Sources */,
 				C70033F122A9EBAB00811E29 /* BlockData+Query.swift in Sources */,
