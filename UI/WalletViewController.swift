@@ -11,7 +11,11 @@ import Cocoa
 class WalletViewController: NSViewController {
 
     let blockController = BlockController.shared
-    var account: Account!
+    var account: Account! {
+        didSet {
+            self.setFields()
+        }
+    }
     
     override func viewDidAppear() {
         self.view.window?.title = account.name
@@ -20,6 +24,14 @@ class WalletViewController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         self.view.window?.title = account.name
+    }
+    
+    fileprivate func setFields() {
+        
+        (view.viewWithTag(100) as! NSTextField).stringValue = account.name
+        (view.viewWithTag(102) as! NSTextField).stringValue = "\(self.blockController.blockData.balances(for: self.account.address).0) ZKC"
+        (view.viewWithTag(103) as! NSTextField).stringValue = "Available: (Calculating)"
+        (view.viewWithTag(104) as! NSTextField).stringValue = "Locked: (Calculating)"
     }
     
     @IBAction func send(_ sender: Any) {
