@@ -28,7 +28,7 @@ class WalletViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        self.view.window?.title = account.name
+        self.view.window?.title = account.name        
     }
     
     fileprivate func setFields() {

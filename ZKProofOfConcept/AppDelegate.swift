@@ -22,7 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             let controller = storyboard.instantiateInitialController() as! NSWindowController
             walletWindows.append(controller)
-            controller.shouldCascadeWindows = true
             
             let vc = controller.contentViewController as! WalletViewController
             vc.account = BlockController.shared.accounts[i]
