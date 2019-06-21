@@ -141,6 +141,10 @@
                             </box>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="accountPopUp" destination="TrW-p5-L4S" id="uxd-8n-dEV"/>
+                        <outlet property="amountTextField" destination="ryb-SE-4JE" id="WlZ-lc-Aqa"/>
+                    </connections>
                 </viewController>
                 <customObject id="rEY-tf-90T" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

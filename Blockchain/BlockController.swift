@@ -40,7 +40,8 @@ public final class BlockController {
                 NSAlert(error: error!).runModal()
                 return
             }
-            print("Tx: \(tx!)")
+            print("send from: \(from.address.hexDescription.suffix(4)) to: \(to.address.hexDescription.suffix(4)), amount: \(amount)")
+            print("\(tx!)")
             
             self.block.produce(currentBlockData: self.blockData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil, result: { block, blockData, error in
                 

@@ -79,7 +79,7 @@ public struct Block: Codable, Equatable, Sha256Hashable {
             let account = try Account(named: "Account \(i)")
             accounts.append(account)
             
-            let entry = Entry(owner: account.address, balance: amount, type: Data(), spendPredicate: nil, spendPredicateArguments: nil, data: nil, nonce: 0, previousHash: nil)
+            let entry = Entry(owner: account.address, balance: amount, type: Data(), spendPredicate: nil, spendPredicateArguments: nil, data: nil, previousHash: nil)
             balances.append(entry)
         }
         

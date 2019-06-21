@@ -10,6 +10,9 @@ import Cocoa
 
 class WalletViewController: NSViewController {
 
+    @IBOutlet weak var amountTextField: NSTextField!
+    @IBOutlet weak var accountPopUp: NSPopUpButton!
+    
     let blockController = BlockController.shared
     var account: Account! {
         didSet {
@@ -45,10 +48,10 @@ class WalletViewController: NSViewController {
     
     @IBAction func send(_ sender: Any) {
         
-        let toIndex = (view.viewWithTag(2) as! NSPopUpButton).indexOfSelectedItem
+        let toIndex = self.accountPopUp.indexOfSelectedItem
         let to = self.blockController.accounts[toIndex]
         
-        guard let amount = UInt64((view.viewWithTag(1) as! NSTextField).stringValue) else {
+        guard let amount = UInt64(self.amountTextField.stringValue) else {
             return
         }
         

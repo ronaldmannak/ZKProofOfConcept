@@ -95,14 +95,14 @@ extension Transaction {
                 result(nil, ZKError.insufficientFunds(available, needed))
                 return
             }
-            guard needed > 0 else {
+            guard needed >= 0 else {
                 result(nil, ZKError.transactionError)
                 return
             }
             
             // 5. Use entries to pay recipients
             var outputs = [Entry]()
-            var spendableInputs = spendableInputs
+            var spendedInputs = spendableInputs
             
             for recipient in recipients {
                 
@@ -110,26 +110,26 @@ extension Transaction {
                 
                 while amount > 0 {
                     
-                    let spentInput = spendableInputs.removeFirst()
+                    let spentInput = spendedInputs.removeFirst()
                     let output: Entry
                     if amount > spentInput.balance {
                         
                         // Balance of input is less than needed, use multiple inputs for this transaction
-                        output = Entry(owner: recipient.to, balance: spentInput.balance, type: type, spendPredicate: spentInput.spendPredicate, spendPredicateArguments: spentInput.spendPredicateArguments, data: spentInput.data, nonce: 0, previousHash: spentInput.sha256)
+                        output = Entry(owner: recipient.to, balance: spentInput.balance, type: type, spendPredicate: spentInput.spendPredicate, spendPredicateArguments: spentInput.spendPredicateArguments, data: spentInput.data, previousHash: spentInput.sha256)
                         
                         amount = amount - spentInput.balance
                         
                     } else {
                         
                         // Balance of input is more than needed, only current input
-                        output = Entry(owner: recipient.to, balance: amount, type: type, spendPredicate: spentInput.spendPredicate, spendPredicateArguments: spentInput.spendPredicateArguments, data: spentInput.data, nonce: 0, previousHash: spentInput.sha256)
+                        output = Entry(owner: recipient.to, balance: amount, type: type, spendPredicate: spentInput.spendPredicate, spendPredicateArguments: spentInput.spendPredicateArguments, data: spentInput.data, previousHash: spentInput.sha256)
                         
                         if amount != spentInput.balance {
                         
                             // Change
                             let changeAmount = spentInput.balance - amount
-                            let change = Entry(owner: spentInput.owner, balance: changeAmount, type: spentInput.type, spendPredicate: spentInput.spendPredicate, spendPredicateArguments: spentInput.spendPredicateArguments, data: spentInput.data, nonce: spentInput.nonce, previousHash: spentInput.sha256)
-                            spendableInputs.insert(change, at: 0)
+                            let change = Entry(owner: spentInput.owner, balance: changeAmount, type: spentInput.type, spendPredicate: spentInput.spendPredicate, spendPredicateArguments: spentInput.spendPredicateArguments, data: spentInput.data, previousHash: spentInput.sha256)
+                            spendedInputs.insert(change, at: 0)
                         }
                         
                         amount = 0
@@ -138,10 +138,17 @@ extension Transaction {
                 }
             }
             
-//            outputs.append(contentsOf: spendableInputs)
+            // Filter out non altered inputs, to prevent adding two of the same output in the
+            for entry in spendedInputs {
+                
+                if spendableInputs.filter({ $0.sha256 == entry.sha256 }).count == 0 {
+                    // this entry is new
+                    outputs.append(entry)
+                }
+            }
             
             // 6. Create transaction
-            let message = Transaction.TransactionMessage(nonces: [UInt64](), inputs: inputs, outputs: outputs + spendableInputs, type: type, recipients: recipients, sender: sender.address)
+            let message = Transaction.TransactionMessage(nonces: [UInt64](), inputs: inputs, outputs: outputs, type: type, recipients: recipients, sender: sender.address)
             do {
                 let tx = try Transaction(message: message, sender: sender, inputs: inputs, outputs: outputs)
                 result(tx, nil)

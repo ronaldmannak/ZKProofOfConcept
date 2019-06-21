@@ -32,7 +32,7 @@ public struct Entry {
     public let data: Data?
     
     /// Counter used for protection against double-application of payments
-    public var nonce: UInt64
+    public let nonce = UUID()
     
     /// Do we need that?
     public let previousHash: Sha256Hash?

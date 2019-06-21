@@ -34,6 +34,13 @@ extension Block {
         // 4. Add new entries
         filteredEntries.append(contentsOf: newEntries)
         
+        // 5. Remove entries with same nonce (double entries)
+//        let buffer = filteredEntries
+//        for entry in buffer {
+//            filteredEntries = filteredEntries.filter({ $0.nonce != entry.nonce })            
+//        }
+
+        
         // 5. Create new block data
         let newBlockData = BlockData(balances: filteredEntries, contracts: currentBlockData.contracts, metadata: currentBlockData.metadata, transactions: proofs ?? [TransactionProof]())
         

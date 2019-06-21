@@ -89,7 +89,7 @@ class TransactionTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Create invalid transaction 1")
         
-        let recipient = Recipient(amount: 0, to: accounts[1].address)
+        let recipient = Recipient(amount: 1_000_000_000, to: accounts[1].address)
         
         accounts[0].createTx(type: Data(), recipients: [recipient], block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
             
@@ -192,6 +192,134 @@ class TransactionTests: XCTestCase {
             }
         }
 
+        wait(for: [expectation], timeout: 2.0)
+    }
+    
+    func testSendSingleTransactionsTwice() {
+        
+        let expectation = XCTestExpectation(description: "Send transactions 1")
+        
+        let sender1 = accounts[2]
+        let recipients = [
+            Recipient(amount: 1_200, to: accounts[9].address),
+            ]
+        
+        sender1.createTx(type: Data(), recipients: recipients, block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
+            
+            XCTAssertNotNil(tx)
+            XCTAssertNil(proof)
+            XCTAssertNil(error)
+            
+            self.genesisBlock.produce(currentBlockData: self.genesisData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil) { block, blockData, error in
+                
+                XCTAssert(error == nil, "Error: \(error!)")
+                XCTAssertNotNil(block)
+                XCTAssertNotNil(blockData)
+                
+                guard let block = block, let blockData = blockData else {
+                    XCTFail()
+                    return
+                }
+                
+                XCTAssert(block.roots.height == 1)
+                XCTAssert(blockData.isValid)
+                XCTAssert(block.quickValidate(blockData: blockData))
+                
+                let expectedBalances: [uint64] = [15_000, 15_000, 15_000 - 1_200, 15_000, 15_000, 15_000, 15_000, 15_000, 15_000, 15_000 + 1_200 ]
+                XCTAssert(expectedBalances.count == 10)
+                
+                for i in 0 ..< 10 {
+                    
+                    let actualBalance = blockData.balances(for: self.accounts[i].address).0
+                    XCTAssert(actualBalance == expectedBalances[i], "balance \(i): Found \(actualBalance), expected \(expectedBalances[i])")
+                }
+                
+                let newRecipients = [
+                    Recipient(amount: 7_000, to: self.accounts[7].address),
+                    ]
+                let sender2 = self.accounts[9] // == recipient
+                
+                sender2.createTx(type: Data(), recipients: newRecipients, block: block, blockData: blockData, replaceIfNeeded: false) { (tx, proof, error) in
+                    
+                    XCTAssertNotNil(tx)
+                    XCTAssertNil(proof)
+                    XCTAssertNil(error)
+                    
+                    let outputs = tx!.message.outputs
+                    XCTAssert(outputs.count == 2)
+                    let change = outputs.filter{ $0.owner == sender2.address }
+                    XCTAssert(change.count == 1)
+                    XCTAssert(change[0].balance == 15_000 - 7_000)        
+                    
+                    let toRecipient = outputs.filter{ $0.owner == newRecipients[0].to }
+                    XCTAssert(toRecipient.count == 1)
+                    XCTAssert(toRecipient[0].balance == 7_000)
+                    
+                    block.produce(currentBlockData: blockData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil) { block, blockData, error in
+                        
+                        XCTAssert(error == nil, "Error: \(error!)")
+                        XCTAssertNotNil(block)
+                        XCTAssertNotNil(blockData)
+                        
+                        guard let block = block, let blockData = blockData else {
+                            XCTFail()
+                            return
+                        }
+                        
+                        XCTAssert(blockData.isValid)
+                        XCTAssert(block.quickValidate(blockData: blockData))
+                                                
+                        let utxos = blockData.balances.filter({ $0.owner == sender2.address })
+                        XCTAssert(utxos.count == 2)
+                        
+                        let senderUtxos = blockData.balances(for: sender2.address).1
+                        XCTAssertNotNil(senderUtxos)
+                        XCTAssert(senderUtxos!.count == 2)
+                        XCTAssert(senderUtxos!.filter({ $0.balance == 15_000 - 7_000 }).count == 1)
+                        
+                        // Found second 1_200!
+                        print("~~~~~")
+                        print(senderUtxos!)
+                        
+                        let recipientUtxos = blockData.balances(for: newRecipients[0].to).1
+                        XCTAssertNotNil(recipientUtxos)
+                        XCTAssert(recipientUtxos!.count == 2)
+                        // one should be 15_000, the other one 7_000
+                        XCTAssert(recipientUtxos!.filter({ $0.balance == 15_000 }).count == 1)
+                        XCTAssert(recipientUtxos!.filter({ $0.balance == 7_000 }).count == 1)
+                        
+                        let expectedBalances: [uint64] = [15_000, 15_000, 13_800, 15_000, 15_000, 15_000, 15_000, 15_000 + 7_000, 15_000, 16_200 - 7_000]
+                        XCTAssert(expectedBalances.count == 10)
+                        
+                        for i in 0 ..< 10 {
+                            
+                            let actualBalance = blockData.balances(for: self.accounts[i].address).0
+                            XCTAssert(actualBalance == expectedBalances[i], "balance \(i): Found \(actualBalance), expected \(expectedBalances[i])")
+                        }
+                        
+                        let sender1Entries = blockData.balances(for: sender1.address).1
+                        XCTAssert(sender1Entries?.count == 1)
+                        
+                        let sender2Entries = blockData.balances(for: sender2.address).1
+                        XCTAssert(sender2Entries?.count == 2, "found \(sender2Entries!.count) entries")
+                        
+                        print("*******")
+                        for entry in sender2Entries! {
+                            print(entry)
+                        }
+                        
+                        //                        let recipient1Entries = blockData.balances(for: recipient1.to).1
+                        //                        XCTAssert(recipient1Entries?.count == 2)
+                        //
+                        //                        let recipient2Entries = blockData.balances(for: recipient2.to).1
+                        //                        XCTAssert(recipient2Entries?.count == 2
+                        
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+        
         wait(for: [expectation], timeout: 2.0)
     }
     
