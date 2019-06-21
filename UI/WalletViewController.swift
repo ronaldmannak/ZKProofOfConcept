@@ -14,7 +14,12 @@ class WalletViewController: NSViewController {
     var account: Account! {
         didSet {
             self.setFields()
+            NotificationCenter.default.addObserver(self, selector: #selector(newBlockReceived(_:)), name: .newBlock, object: nil)
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .newBlock, object: nil)
     }
     
     override func viewDidAppear() {
@@ -34,13 +39,22 @@ class WalletViewController: NSViewController {
         (view.viewWithTag(104) as! NSTextField).stringValue = "Locked: (Calculating)"
     }
     
+    @objc func newBlockReceived(_ notification: Notification) {
+        self.setFields()
+    }
+    
     @IBAction func send(_ sender: Any) {
         
         let toIndex = (view.viewWithTag(2) as! NSPopUpButton).indexOfSelectedItem
+        let to = self.blockController.accounts[toIndex]
+        
         guard let amount = UInt64((view.viewWithTag(1) as! NSTextField).stringValue) else {
             return
         }
-
+        
+        blockController.send(from: self.account, to: to, amount: amount, type: Data())
+        
+/*
         let recipient = Recipient(amount: amount, to: self.blockController.accounts[toIndex].address)
         
         account.createTx(type: Data(), recipients: [recipient], block: self.blockController.block, blockData: self.blockController.blockData) { (tx, proof, error) in
@@ -63,7 +77,7 @@ class WalletViewController: NSViewController {
 //                self.updateAccountInfo()
             })
 
-        }
+        }*/
 
     }
     

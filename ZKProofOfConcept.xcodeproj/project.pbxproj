@@ -29,6 +29,7 @@
 		C71FD50922BBF41B00163BBC /* Wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C71FD50822BBF41B00163BBC /* Wallet.storyboard */; };
 		C71FD50B22BBF42C00163BBC /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50A22BBF42C00163BBC /* WalletViewController.swift */; };
 		C71FD50D22BBFE6C00163BBC /* BlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50C22BBFE6C00163BBC /* BlockController.swift */; };
+		C71FD51122BC5CDA00163BBC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD51022BC5CDA00163BBC /* Notification.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -80,6 +81,7 @@
 		C71FD50822BBF41B00163BBC /* Wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Wallet.storyboard; sourceTree = "<group>"; };
 		C71FD50A22BBF42C00163BBC /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		C71FD50C22BBFE6C00163BBC /* BlockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockController.swift; sourceTree = "<group>"; };
+		C71FD51022BC5CDA00163BBC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				C7653CD2229DF0DB00777D13 /* String.swift */,
 				C7653CC0229CA1CA00777D13 /* ZKProofOfConcept-Bridging-Header.h */,
 				C7653CDF229F5C3600777D13 /* ZKError.swift */,
+				C71FD51022BC5CDA00163BBC /* Notification.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				C71FD50622B9BB3C00163BBC /* BlockData+Validation.swift in Sources */,
 				C70033F122A9EBAB00811E29 /* BlockData+Query.swift in Sources */,
 				C7653CC4229CB86900777D13 /* Pedersen.swift in Sources */,
+				C71FD51122BC5CDA00163BBC /* Notification.swift in Sources */,
 				C7653CD0229DF0C800777D13 /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
