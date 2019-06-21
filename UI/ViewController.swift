@@ -41,12 +41,15 @@ class ViewController: NSViewController {
         (view.viewWithTag(1) as! NSTextField).stringValue = "Block height: \(blockController.block.roots.height)"
         
         logView.string += "\n"
-        
+                
+        // Log entries
         let orderedEntries = blockController.blockData.balances.sorted { $0.owner.description > $1.owner.description }
         
         for entry in orderedEntries.enumerated() {
             logView.string += "\(entry.offset): " + entry.element.description
         }
+        
+        self.logView.scrollToEndOfDocument(nil)
     }
 }
 

@@ -21,3 +21,11 @@ extension Recipient: Sha256Hashable {
         return try! JSONEncoder().encode(self).sha256
     }
 }
+
+extension Recipient: CustomStringConvertible {
+    
+    public var description: String {
+        
+        return "amount: \(amount), to: \(to.hexDescription.suffix(4))"
+    }
+}

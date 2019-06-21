@@ -54,31 +54,6 @@ class WalletViewController: NSViewController {
         
         blockController.send(from: self.account, to: to, amount: amount, type: Data())
         
-/*
-        let recipient = Recipient(amount: amount, to: self.blockController.accounts[toIndex].address)
-        
-        account.createTx(type: Data(), recipients: [recipient], block: self.blockController.block, blockData: self.blockController.blockData) { (tx, proof, error) in
-
-            guard error == nil else {
-                NSAlert(error: error!).runModal()
-                return
-            }
-            print("Tx: \(tx!)")
-
-            self.blockController.block.produce(currentBlockData: self.blockController.blockData, transactions: [tx!], proofs: [TransactionProof](), newContracts: nil, newMetadata: nil, result: { block, blockData, error in
-
-                guard error == nil else {
-                    NSAlert(error: error!).runModal()
-                    return
-                }
-
-//                self.block = block
-//                self.blockData = blockData
-//                self.updateAccountInfo()
-            })
-
-        }*/
-
     }
     
     @IBAction func coinChange(_ sender: Any) {

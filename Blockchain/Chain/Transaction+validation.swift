@@ -47,7 +47,7 @@ extension Transaction {
 
 extension Transaction: CustomStringConvertible {
     public var description: String {
-        return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(message.sender.suffix(4))" //", \ninputs: \(self.inputs) \noutputs: \(self.recipients)"
+        return "\n\ntxId: ...\(id.hexDescription.suffix(4)), sender: ...\(message.sender.hexDescription.suffix(4)), \ninputs: \(self.message.inputs) \noutputs: \(self.message.outputs), \nrecipients: \(self.message.recipients)"
     }
 }
 
