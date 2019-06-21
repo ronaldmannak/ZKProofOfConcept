@@ -17,9 +17,12 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(setFields(_:)), name: .newBlock, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newBlockReceived(_:)), name: .newBlock, object: nil)
         
-        logView.string = ""
+        for account in blockController.accounts.enumerated() {
+            logView.string += "account\(account.offset): \(account.element.address.hexDescription.suffix(4))\n"
+        }
+        setFields()
     }
 
     override var representedObject: Any? {
@@ -28,10 +31,22 @@ class ViewController: NSViewController {
         }
     }
     
-    @objc func setFields(_ notification: Notification) {
+    @objc func newBlockReceived(_ notification: Notification) {
+        
+        setFields()
+    }
+    
+    func setFields() {
+        
         (view.viewWithTag(1) as! NSTextField).stringValue = "Block height: \(blockController.block.roots.height)"
         
-        logView.string = "test"
+        logView.string += "\n"
+        
+        let orderedEntries = blockController.blockData.balances.sorted { $0.owner.description > $1.owner.description }
+        
+        for entry in orderedEntries.enumerated() {
+            logView.string += "\(entry.offset): " + entry.element.description
+        }
     }
 }
 
