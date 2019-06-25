@@ -12,8 +12,8 @@ import XCTest
 class PredicateTests: XCTestCase {
 
     var accounts: [Account]!
-    var genesisBlock: Block!
-    var genesisData: BlockData!
+    var block: Block!
+    var data: BlockData!
     
     override func setUp() {
         
@@ -22,9 +22,9 @@ class PredicateTests: XCTestCase {
         do {
             // Create genesis block
             let genesis = try Block.createGenesis()
-            accounts = genesis.0
-            genesisBlock = genesis.1
-            genesisData = genesis.2
+            self.accounts = genesis.0
+            self.block = genesis.1
+            self.data = genesis.2
             
         } catch {
             XCTFail("Unexpected error: \(error)")
@@ -38,31 +38,27 @@ class PredicateTests: XCTestCase {
     
     func testSanity() {
         
-        XCTAssertNotNil(accounts)
-        XCTAssertNotNil(genesisData)
-        XCTAssertNotNil(genesisBlock)
+        XCTAssertNotNil(self.accounts)
+        XCTAssertNotNil(self.data)
+        XCTAssertNotNil(self.block)
         XCTAssert(accounts.count == 10)
     }
 
     func testSimplePredicate() {
         
+        guard let entries = self.data.entries(for: accounts[0].address) else {
+            XCTFail()
+            return
+        }
+        XCTAssert(entries.count == 1)
+
         let expectation = XCTestExpectation(description: "simple predicate")
-        
-//        accounts[0].
-        
-//        let recipient = Recipient(amount: 200, to: accounts[1].address)
-//        
-//        accounts[0].createTx(type: Data(), recipients: [recipient], block: genesisBlock, blockData: genesisData, replaceIfNeeded: false) { (tx, proof, error) in
-//            
-//            XCTAssertNotNil(tx)
-//            XCTAssertNil(proof)
-//            XCTAssertNil(error)
-//            
-//            let inputs = tx!.message.inputs
-//            let outputs = tx!.message.outputs
+        entries[0].isSpendable(block: self.block, blockData: self.data) { result, error in
             
+            XCTAssertNil(error)
+            XCTAssertTrue(result)
             expectation.fulfill()
-//        }
+        }
         
         wait(for: [expectation], timeout: 2.0)
     }
