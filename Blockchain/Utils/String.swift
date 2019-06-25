@@ -27,4 +27,18 @@ extension String {
     
     /// Returns true if self has 0x prefix
     public var has0xPrefix: Bool { return hasPrefix("0x") }
+    
+    func substring(with nsrange: NSRange) -> Substring? {
+        guard let range = Range(nsrange, in: self) else { return nil }
+        return self[range]
+    }
+    
+    var fullRange: NSRange {
+        return NSRange(location: 0, length: self.count)
+    }
+    
+    func trim() -> String? {
+        return String(self.trimmingCharacters(in: .whitespacesAndNewlines))
+    }
+    
 }

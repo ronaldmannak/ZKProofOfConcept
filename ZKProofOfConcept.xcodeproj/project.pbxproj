@@ -30,6 +30,11 @@
 		C71FD50B22BBF42C00163BBC /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50A22BBF42C00163BBC /* WalletViewController.swift */; };
 		C71FD50D22BBFE6C00163BBC /* BlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD50C22BBFE6C00163BBC /* BlockController.swift */; };
 		C71FD51122BC5CDA00163BBC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD51022BC5CDA00163BBC /* Notification.swift */; };
+		C71FD51322C1461200163BBC /* ShellOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD51222C1461200163BBC /* ShellOperation.swift */; };
+		C71FD51622C1463F00163BBC /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD51522C1463F00163BBC /* BuildPhase.swift */; };
+		C71FD51922C14A9500163BBC /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CDD229F2A6800777D13 /* Predicate.swift */; };
+		C71FD51B22C152D700163BBC /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD51A22C152D700163BBC /* PredicateTests.swift */; };
+		C71FD51D22C2A0D900163BBC /* Entry+Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71FD51C22C2A0D900163BBC /* Entry+Predicate.swift */; };
 		C7653C98229C809900777D13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C97229C809900777D13 /* AppDelegate.swift */; };
 		C7653C9A229C809900777D13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653C99229C809900777D13 /* ViewController.swift */; };
 		C7653C9C229C809C00777D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7653C9B229C809C00777D13 /* Assets.xcassets */; };
@@ -46,7 +51,6 @@
 		C7653CD4229DF0FB00777D13 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CD2229DF0DB00777D13 /* String.swift */; };
 		C7653CD6229DF30B00777D13 /* MerkletreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CD5229DF30B00777D13 /* MerkletreeTests.swift */; };
 		C7653CDA229F2A2B00777D13 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CD8229F2A2900777D13 /* Entry.swift */; };
-		C7653CDE229F2A6800777D13 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CDD229F2A6800777D13 /* Predicate.swift */; };
 		C7653CE0229F5C3600777D13 /* ZKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CDF229F5C3600777D13 /* ZKError.swift */; };
 		C7653CE4229F6DB300777D13 /* ZKProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7653CE3229F6DB300777D13 /* ZKProof.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +86,11 @@
 		C71FD50A22BBF42C00163BBC /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		C71FD50C22BBFE6C00163BBC /* BlockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockController.swift; sourceTree = "<group>"; };
 		C71FD51022BC5CDA00163BBC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		C71FD51222C1461200163BBC /* ShellOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellOperation.swift; sourceTree = "<group>"; };
+		C71FD51522C1463F00163BBC /* BuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildPhase.swift; sourceTree = "<group>"; };
+		C71FD51722C147B800163BBC /* Predicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
+		C71FD51A22C152D700163BBC /* PredicateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateTests.swift; sourceTree = "<group>"; };
+		C71FD51C22C2A0D900163BBC /* Entry+Predicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Predicate.swift"; sourceTree = "<group>"; };
 		C7653C94229C809900777D13 /* ZKProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7653C97229C809900777D13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7653C99229C809900777D13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +166,16 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		C71FD51422C1462D00163BBC /* Zero Knowledge */ = {
+			isa = PBXGroup;
+			children = (
+				C71FD51222C1461200163BBC /* ShellOperation.swift */,
+				C71FD51522C1463F00163BBC /* BuildPhase.swift */,
+				C71FD51722C147B800163BBC /* Predicate.swift */,
+			);
+			path = "Zero Knowledge";
+			sourceTree = "<group>";
+		};
 		C7653C8B229C809900777D13 = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +218,7 @@
 				C7653CD5229DF30B00777D13 /* MerkletreeTests.swift */,
 				C7653CC9229DEFD500777D13 /* KeyTests.swift */,
 				C70033F422AA3EDF00811E29 /* ConvenienceFunctions.swift */,
+				C71FD51A22C152D700163BBC /* PredicateTests.swift */,
 				C7653CAC229C809D00777D13 /* Info.plist */,
 			);
 			path = ZKProofOfConceptTests;
@@ -212,6 +232,7 @@
 				C7653CD7229F2A1700777D13 /* Chain */,
 				C7653CBD229CA0F700777D13 /* Utils */,
 				C7653CB8229C8D4F00777D13 /* Crypto */,
+				C71FD51422C1462D00163BBC /* Zero Knowledge */,
 				C71FD50C22BBFE6C00163BBC /* BlockController.swift */,
 			);
 			path = Blockchain;
@@ -253,6 +274,7 @@
 				C70033F022A9EBAB00811E29 /* BlockData+Query.swift */,
 				C71FD50522B9BB3C00163BBC /* BlockData+Validation.swift */,
 				C7653CD8229F2A2900777D13 /* Entry.swift */,
+				C71FD51C22C2A0D900163BBC /* Entry+Predicate.swift */,
 				C70033EA22A9CF9B00811E29 /* Recipient.swift */,
 				C7653CDB229F2A3B00777D13 /* Transaction.swift */,
 				C7653CE1229F6BD700777D13 /* Transaction+validation.swift */,
@@ -373,7 +395,6 @@
 			files = (
 				C7653CC6229DDD3D00777D13 /* Merkletree.swift in Sources */,
 				C705D4E922AAB7F7003C0EAD /* Account.swift in Sources */,
-				C7653CDE229F2A6800777D13 /* Predicate.swift in Sources */,
 				C70033F322AA360D00811E29 /* Block+Validation.swift in Sources */,
 				C7653CD1229DF0CA00777D13 /* Uint64.swift in Sources */,
 				C7653CE4229F6DB300777D13 /* ZKProof.swift in Sources */,
@@ -381,6 +402,8 @@
 				C7653CE0229F5C3600777D13 /* ZKError.swift in Sources */,
 				C70033EB22A9CF9B00811E29 /* Recipient.swift in Sources */,
 				C70033E622A9B21500811E29 /* ContractMetadata.swift in Sources */,
+				C71FD51922C14A9500163BBC /* Predicate.swift in Sources */,
+				C71FD51D22C2A0D900163BBC /* Entry+Predicate.swift in Sources */,
 				C7653CD4229DF0FB00777D13 /* String.swift in Sources */,
 				C7653C9A229C809900777D13 /* ViewController.swift in Sources */,
 				C70033E822A9BD9F00811E29 /* Transaction.swift in Sources */,
@@ -395,6 +418,8 @@
 				C7653CBA229C8D6000777D13 /* SHA256.swift in Sources */,
 				C7653CBF229CA10E00777D13 /* Typealias.swift in Sources */,
 				C71FD50D22BBFE6C00163BBC /* BlockController.swift in Sources */,
+				C71FD51622C1463F00163BBC /* BuildPhase.swift in Sources */,
+				C71FD51322C1461200163BBC /* ShellOperation.swift in Sources */,
 				C71FD50B22BBF42C00163BBC /* WalletViewController.swift in Sources */,
 				C70033E922A9BDA100811E29 /* Transaction+validation.swift in Sources */,
 				C71FD50622B9BB3C00163BBC /* BlockData+Validation.swift in Sources */,
@@ -414,6 +439,7 @@
 				C7653CAB229C809D00777D13 /* ZKProofOfConceptTests.swift in Sources */,
 				C705D4EA22AB1F62003C0EAD /* BlockTests.swift in Sources */,
 				C705D4E322AA426E003C0EAD /* TransactionTests.swift in Sources */,
+				C71FD51B22C152D700163BBC /* PredicateTests.swift in Sources */,
 				C705D4ED22B02487003C0EAD /* AccountTests.swift in Sources */,
 				C7653CD6229DF30B00777D13 /* MerkletreeTests.swift in Sources */,
 				C70033F522AA3EDF00811E29 /* ConvenienceFunctions.swift in Sources */,

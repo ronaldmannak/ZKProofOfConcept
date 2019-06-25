@@ -8,22 +8,60 @@
 
 import Foundation
 
-public struct Predicate: Codable, Equatable {
+public class Predicate: Codable {
     
+    let contract: ContractAddress
     let arguments: [String]?
-}
-
-extension Predicate {
+    
+    // temp init
     init() {
+        self.contract = Data()
         self.arguments = nil
     }
+    
+    init(contract: ContractAddress, arguments: [String]) {
+        self.contract = contract
+        self.arguments = arguments
+    }
+    
 }
+
 
 extension Predicate {
     
-    public func run(block: Block, blockData: BlockData, result: (Bool) -> Void) {
+    public func run(block: Block, blockData: BlockData, result: (Bool, Error?) -> Void) {
         
-        result(true)
+        // search contract
+        
+        // copy files from block data into a temp directory
+        
+        // execute the
+        
+        result(true, nil)
+        
+//        let operation = ShellOperation.
     }
     
+}
+
+
+extension Predicate: ShellProtocol {
+    func shell(_ shell: ShellOperation, didReceiveStdout string: String) {
+        print("stdOut: \(string)")
+    }
+    
+    func shell(_ shell: ShellOperation, didReceiveStderr string: String) {
+        print("stdErr: \(string)")
+    }
+    
+    func shell(_ shell: ShellOperation, didReceiveStdin string: String) {
+        print("stdIn: \(string)")
+    }
+}
+
+extension Predicate: Equatable {
+    
+    public static func == (lhs: Predicate, rhs: Predicate) -> Bool {
+        return lhs.contract == rhs.contract && lhs.arguments == rhs.arguments
+    }
 }

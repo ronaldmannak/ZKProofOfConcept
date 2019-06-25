@@ -54,18 +54,12 @@ extension Entry {
             var filtered = [Entry]()
             
             for entry in entries {
-                
-                // If no predicate is set, entry can be spent
-                guard let predicate = entry.spendPredicate else {
-                    filtered.append(entry)
-                    continue
-                }
-                
+
                 filterGroup.enter()
                 
-                predicate.run(block: block, blockData: blockData) {
-                    if $0 == true { filtered.append(entry) }
-                }
+                entry.isSpendable(block: block, blockData: blockData, result: { result, error in
+                    if result == true { filtered.append(entry) }
+                })
                 
                 filterGroup.leave()
             }
